@@ -1,0 +1,163 @@
+<?php
+
+/**
+ * Stellt alle Aktionen im Lagerumfeld zur Ver&uuml;gung
+ * 
+ * @author Tobias Beckmerhagen
+ * 
+ */
+class Lager {
+	
+	private $DBConn = null;
+	
+	/**
+	 * Klassenkonstruktor.<br />
+	 * Erwartet eine MySQL Connection Ressource
+	 * 
+	 * @param MySQL_Connection $iDBConn
+	 * @version 1.0
+	 * 
+	 */
+	public function __construct($iDBConn) {
+		$this->DBConn = $iDBConn;
+	}
+	
+	/**
+	 * F&uuml;gt eine Kaffeesorte / einen Artikel zur Lagerartikelliste hinzu
+	 * 
+	 * @param String $sorte Beschreibung
+	 * @param String $uom Unit of Measure (Mengeneinheit)
+	 * @param String $uom_short Unit of Measure Abk&uuml;rzung
+	 * @param Decimal $size Verpackungs&ouml;&szlig;e
+	 * 
+	 * @return Integer Success/Error Code
+	 */
+	public function addArtikel($sorte, $uom, $uom_short, $size) {
+		$cSql = "SELECT * FROM "._TBL_LA_ARTIKEL_." WHERE sorte = '".$sorte."' AND uom = '".$uom."' AND size = '".$size."'";
+		if((!$result = mysql_query($cSql,$this->DBConn)) || (mysql_num_rows($result) == 0)) {
+			$sql = "INSERT INTO "._TBL_LA_ARTIKEL_." (sorte, uom, uom_short, size) VALUES ('".$sorte."', '".$uom."', '".$uom_short."', '".$size."')";
+			if((!$result = mysql_query($sql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
+				return -1;
+			} else {
+				return 1;
+			}
+		} else {
+			return -2;
+		}
+				
+	}
+	
+	/**
+	 * Selektiert alle vorhandenen Artikel und gibt sie als Assoziatives Array zur&uuml;ck
+	 * 
+	 * @return Ambigous <string, multitype:, NULL>
+	 */
+	public function getArtikelListe() {		
+		$sql = "SELECT id, sorte, uom, uom_short, TRUNCATE(size,0) AS size FROM "._TBL_LA_ARTIKEL_;
+		$result = null;
+		if((!$qryResult = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($qryResult) <= 0)) {
+				$result = '<span class="error">Es ist ein Fehler aufgetreten!</span>';
+		} else {
+			while($row = mysql_fetch_assoc($qryResult)) {
+				$result[] = $row;
+			}							
+		}
+		return $result;
+	}
+	
+	/**
+	 * Selektiert alle Lagereing&auml;nge welche noch nicht vollst&auml;ndig ausgebucht wurden.<br />
+	 * Gibt ebenfalls den aktuellen Lagerbestand und die Artikelbeschreibung mit Ma&szlig;einheit und Menge aus.
+	 * 
+	 * @return Ambigous <string, multitype:, NULL>
+	 */
+	public function getBookableStockPostings() {
+		$sql =	"
+					SELECT
+							 le.lfdnr AS ekId
+							,le.art_id AS artId
+							,le.anzahl AS ekAnz
+							,le.datum AS ekDatum
+							,ifnull(la.anz, 0) AS laAus
+							,(le.anzahl - ifnull(la.anz, 0)) AS lagerBestand
+							,art.sorte AS artSorte
+							,art.size AS artSize
+							,art.uom_short AS artUOMshort
+					FROM "._TBL_LA_EINGANG." le
+					LEFT JOIN
+						(
+							SELECT SUM(anzahl) AS anz, eid
+							FROM "._TBL_LA_AUSGANG."
+							GROUP BY eid
+						) 	AS la
+							ON la.eid = le.lfdnr
+							AND la.anz < le.anzahl
+					JOIN
+						(
+							SELECT id, sorte, TRUNCATE(size,0) AS size, uom_short
+							FROM "._TBL_LA_ARTIKEL_."
+						)	AS art
+							ON le.art_id = art.id
+					ORDER BY ekDatum
+				";
+		
+		$result = null;
+		if((!$qryResult = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($qryResult) <= 0)) {
+				$result = '<span class="error">Es ist ein Fehler aufgetreten!</span>';
+		} else {
+			while($row = mysql_fetch_assoc($qryResult)) {
+				$result[] = $row;
+			}
+		}
+		return $result;
+	}
+	
+	/**
+	 * F&uuml;gt einen Einkauf in die entsprechende Lagertabelle ein.
+	 * 
+	 * @param Integer $artId Artikel ID aus der Artikel Tabelle
+	 * @param Integer $size Einkaufsmenge
+	 * @param Integer $singlePrice Preis pro Einheit
+	 * @param Date $datum Datum des Einkaufs
+	 * 
+	 * @return Integer Success/Error Code
+	 */
+	public function checkInStockPosting($artId, $size, $singlePrice, $datum) {
+		$singlePrice = str_replace(',','.',$singlePrice);
+		$sql = "INSERT INTO "._TBL_LA_EINGANG." (art_id, anzahl, preis_pro_stueck, datum) 
+												VALUES (".$artId.", ".$size.", ".$singlePrice.", '".$datum."')";
+		if((!$result = mysql_query($sql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
+			return -1;
+		} else {			
+			return 1;
+		}
+	}
+	
+	/**
+	 * F&uuml;gt einen Verbrauch in die entsprechende Lagertabelle ein.<br />
+	 * Schreibt zus&auml;tzlich den aktuellen Tassenz&auml;hlerstand in die Datenbank
+	 * 
+	 * @param Date $datum
+	 * @param Integer $ekId
+	 * @param Integer $size
+	 * @param Integer $cupCount
+	 * 
+	 * @return Integer Success/Error Code
+	 */
+	public function checkOutStockPosting($datum, $ekId, $size, $cupCount) {
+		$vbSql = "INSERT INTO "._TBL_LA_AUSGANG." (eid, anzahl, datum) VALUES (".$ekId.", ".$size.", '".$datum."')";
+		if((!$vbResult = mysql_query($vbSql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
+			return -1;
+		} else {
+			$cupSql = "INSERT INTO "._TBL_GER_ZAEHLER_." (zaehlerstand, datum) VALUES (".$cupCount.", '".$datum."')";
+			if((!$cupResult = mysql_query($cupSql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
+				return -2;
+			} else {
+				return 1;
+			}
+		}
+	}
+	
+}
+
+?>
