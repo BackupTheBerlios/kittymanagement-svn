@@ -38,7 +38,7 @@ $(function() {
 							return false;
 						}
 						var kategorie = $("input#kategorie:checked").val();
-						if (kategorie == "") {
+						if (typeof(kategorie) == "undefined") {
 							$("label#kategorie_error").show();
 							$("input#kategorie").focus();
 							return false;

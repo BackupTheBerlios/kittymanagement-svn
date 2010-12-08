@@ -42,31 +42,29 @@
 		</form>
 	</fieldset>	
 	
-
-
-	<div class="catdescr">Benutzer bearbeiten</div>
-	<form name="mitgliedEdit" action="" method="post">
-		<input type="text" name="vname" /> Vorname<br />
-		<input type="text" name="nname" /> Nachname<br />
-		<input type="text" name="email" /> Email Adresse<br />
-		<input type="radio" name="faktor" value="ma" /> Mitarbeiter&nbsp;&nbsp;
-		<input type="radio" name="faktor" value="hiwi" /> HiWi<br />
-		<input type="checkbox" name="aktiv" /> Inaktiv?<br />	
-		<input type="submit" class="submit" name="aendern" value="&Auml;nderungen &uuml;bernehmen" disabled />
-	</form>
-
 	<div class="catdescr">Benutzerliste</div>
-	
-	{if is_array($member_list) }
-		Name&nbsp;Nachname&nbsp;Email&nbsp;<br />
-		{foreach name=aussen item=member from=$member_list}
-			{foreach key=key item=val from=$member}
-				{if $key == "name"} {$val}, {/if} {if $key == "vorname"} {$val}, {/if} {if $key == "email"} {$val} {/if}
-			{/foreach} <a href="">[ Details ]</a> <a href="">[ Edit ]</a><br />
-		{/foreach}
-	{else}
-		{$member_list}
-	{/if}
+			{if is_array($member_list)}
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Nachname</th>
+					<th>Email</th>
+					<th></th>
+				</tr>
+				{foreach name=aussen item=member from=$member_list}						
+				<tr>
+					<td>{$member.vorname}</td>
+					<td>{$member.name}</td>
+					<td>{$member.email}</td>
+					<td>
+						<a href=""><img src="images/ppl_view.png" style="width:16px; height:16px;" alt="edit" title="Benutzer anzeigen / editieren" /></a>
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			{else}
+				{$member_list}
+			{/if}
 </div>
 
 {include file="navigation.tpl.php"}

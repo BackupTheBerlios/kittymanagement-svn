@@ -212,6 +212,10 @@ h1,h2,h3 {
 	padding: 1px 3px;
 	border: 2px solid #EEE;
 }
+.content td > a > img{
+	vertical-align: middle;
+	border: 0px;
+}
 /* search form */
 form {
 	padding: 0 0 6px 8px;
