@@ -53,7 +53,7 @@ class Lager {
 	 * @return Ambigous <string, multitype:, NULL>
 	 */
 	public function getArtikelListe() {		
-		$sql = "SELECT id, sorte, uom, uom_short, TRUNCATE(size,0) AS size FROM "._TBL_LA_ARTIKEL_;
+		$sql = "SELECT id, sorte, uom, uom_short, size FROM "._TBL_LA_ARTIKEL_." ORDER BY sorte ASC";
 		$result = null;
 		if((!$qryResult = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($qryResult) <= 0)) {
 				$result = '<span class="error">Es ist ein Fehler aufgetreten!</span>';
@@ -94,7 +94,7 @@ class Lager {
 							AND la.anz < le.anzahl
 					JOIN
 						(
-							SELECT id, sorte, TRUNCATE(size,0) AS size, uom_short
+							SELECT id, sorte, size, uom_short
 							FROM "._TBL_LA_ARTIKEL_."
 						)	AS art
 							ON le.art_id = art.id

@@ -11,12 +11,10 @@
 
 <link rel="stylesheet" type="text/css" media="all" href="../page/style/base.css" />
 
-<script type="text/javascript" src="../lib/tigra_calendar/calendar_eu.js"></script>
-<link rel="stylesheet" type="text/css" href="../lib/tigra_calendar/calendar.css" />
-
-<link type="text/css" href="../page/style/custom-theme/jquery-ui-1.8.4.custom.css" rel="stylesheet" />	
-<script type="text/javascript" src="../lib/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="../lib/js/jquery-ui-1.8.4.custom.min.js"></script>
+<link type="text/css" href="../page/style/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />	
+<script type="text/javascript" src="../lib/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="../lib/js/jquery-ui-1.8.6.custom.min.js"></script>
+<script type="text/javascript" src="../lib/js/jquery-ui-datepicker-de.js"></script>
 </head>
 
 <body>

@@ -32,7 +32,8 @@
 			<td class="betrag" id="betrag_hiwi">{$contributionHiWi}</td>
 		</tr>
 	</table>
-	
+</div>
+<div class="item">
 	{if is_array($member_list)}
 	<div class="catdescr">Buchungs&uuml;bersicht</div>
 	<form name="contributions" id="contributions" action="" method="post">

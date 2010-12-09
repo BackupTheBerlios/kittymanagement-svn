@@ -2,23 +2,12 @@
 
 require_once('../src/config/Init.php');
 
-$SM->assign("nav_id_lager", 'id="current"');
-
-$SM->assign("artListe", $LA->getArtikelListe());
+$SM->assign("lagerArtikel", $LA->getArtikelListe());
 $SM->assign("lagerBestand", $LA->getBookableStockPostings());
 
-print_r($SM->get_template_vars("lagerBestand"));
+//print_r($SM->get_template_vars("lagerBestand"));
 
 if($_POST) {
-	if($_POST['artikelEintragen']) {
-		$art_sorte = $_POST['sorte'];
-		$art_uom = $_POST['uom'];
-		$art_uom_short = $_POST['uom_short'];
-		$art_size = $_POST['size'];
-		
-		$SM->assign("art_add_return", $LA->addArtikel($art_sorte, $art_uom, $art_uom_short, $art_size));
-	}
-	
 	if($_POST['lagerEinbuchen']) {
 		$dtmp = explode("-", $_POST['ek_datum']); // dd mm yyyy
 		$date = $dtmp[2].'-'.$dtmp[1].'-'.$dtmp[0]; // yyyy mm dd
@@ -44,6 +33,9 @@ if($_POST) {
 	
 }
 
-$SM->display("lager.tpl.php");
+if($_GET['p'] == 'artikelverwaltung') {
 
+$SM->display("lager_artikel.tpl.php");
+
+}
 ?>

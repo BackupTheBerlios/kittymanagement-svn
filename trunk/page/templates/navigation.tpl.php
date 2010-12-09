@@ -26,7 +26,7 @@
 		<li><a href="kasse.php?p=beitraege">&raquo; Monatsbeitr&auml;ge buchen</a></li>
 		<li><a href="benutzer.php">&raquo; Benutzer verwalten</a></li>
 		<li><a href="index.html">&raquo; Benachrichtigungen</a></li>
-		<li><a href="index.html">&raquo; Lagerartikel verwalten</a></li>
+		<li><a href="lager.php?p=artikelverwaltung">&raquo; Lagerartikel verwalten</a></li>
 		<li><a href="index.html">&raquo; Textbausteine verwalten</a></li>
 	</ul>
 </div>

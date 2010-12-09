@@ -13,56 +13,39 @@ $(function() {
 			backgroundColor : "#FFFFFF"
 		});
 	});
-	$('#usr_add_form').hide();
-	
-	$('#usr_add_show')
-			.toggle(
-					function() {
-						$('#usr_add_form').show("slow");
-					},
-					function() {
-						$('#usr_add_form').hide("slow");
-					}
-			);
-	
-	$('#usr_add_show').css({ cursor : "pointer" });
 
 	$("#submit")
 			.click(
 					function() {
 						$('.error').hide();
 
-						var vname = $("input#vname").val();
-						if (vname == "") {
-							$("label#vname_error").show();
-							$("input#vname").focus();
+						var sorte = $("input#sorte").val();
+						if (sorte == "") {
+							$("label#sorte_error").show();
+							$("input#sorte").focus();
 							return false;
 						}
-						var nname = $("input#nname").val();
-						if (nname == "") {
-							$("label#nname_error").show();
-							$("input#nname").focus();
+						var uom = $("input#uom").val();
+						if (uom == "") {
+							$("label#uom_error").show();
+							$("input#uom").focus();
 							return false;
 						}
-						var email = $("input#email").val();
-						if (email == "") {
-							$("label#email_error").show();
-							$("input#email").focus();
+						var uom_short = $("input#uom_short").val();
+						if (uom_short == "") {
+							$("label#uom_short_error").show();
+							$("input#uom_short").focus();
 							return false;
 						}
-						var kategorie = $("input#kategorie:checked").val();
-						if (typeof(kategorie) == "undefined") {
-							$("label#kategorie_error").show();
-							$("input#kategorie").focus();
+						var size = $("input#size").val();
+						if (size == "") {
+							$("label#size_error").show();
+							$("input#size").focus();
 							return false;
-						}
-						var buchen = $("input#buchen:checked").val();
-						if (typeof(buchen) == "undefined") {
-							buchen = 0;
 						}
 						
-						var dataString = 'user_add=1&vname=' + vname + '&nname=' + nname + '&email=' + email + '&kategorie=' + kategorie + '&buchen=' + buchen;
-//						alert (dataString);return false;
+						var dataString = 'artikel_add=1&sorte=' + sorte + '&uom=' + uom + '&uom_short=' + uom_short + '&size=' + size;
+						alert (dataString);return false;
 
 						var return_val;
 						$.ajax({

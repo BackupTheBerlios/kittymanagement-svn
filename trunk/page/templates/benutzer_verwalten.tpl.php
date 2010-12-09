@@ -42,32 +42,34 @@
 			</form>
 		</fieldset>	
 	</div>
+</div>
+<div class="item">
 	<div class="catdescr">Benutzerliste</div>
-		<span class="return_wert"></span>
-		<div id="benutzerliste">
-			{if is_array($member_list)}
-			<table>
-				<tr>
-					<th>Name</th>
-					<th>Nachname</th>
-					<th>Email</th>
-					<th></th>
-				</tr>
-				{foreach name=aussen item=member from=$member_list}						
-				<tr>
-					<td>{$member.name}</td>
-					<td>{$member.vorname}</td>
-					<td>{$member.email}</td>
-					<td>
-						<a href=""><img src="images/ppl_view.png" alt="edit" title="Benutzer anzeigen / editieren" /></a>
-					</td>
-				</tr>
-				{/foreach}
-			</table>
-			{else}
-				{$member_list}
-			{/if}
-		</div>
+	<span class="return_wert"></span>
+	<div id="benutzerliste">
+		{if is_array($member_list)}
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Nachname</th>
+				<th>Email</th>
+				<th></th>
+			</tr>
+			{foreach name=aussen item=member from=$member_list}						
+			<tr>
+				<td>{$member.name}</td>
+				<td>{$member.vorname}</td>
+				<td>{$member.email}</td>
+				<td>
+					<a href=""><img src="images/ppl_view.png" alt="edit" title="Benutzer anzeigen / editieren" /></a>
+				</td>
+			</tr>
+			{/foreach}
+		</table>
+		{else}
+			{$member_list}
+		{/if}
+	</div>
 </div>
 
 {include file="navigation.tpl.php"}
