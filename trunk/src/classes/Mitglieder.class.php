@@ -33,6 +33,7 @@ class Mitglieder {
 	 * @return Integer Success/Error Code
 	 */
 	public function addMitglied($name, $vorname, $email, $faktor) {
+		
 		if(!checkMail($email)) {
 			return -1;
 		} else {
@@ -90,6 +91,36 @@ class Mitglieder {
 				}				
 				return $resultSet;
 			}			
+		} else {
+			return '<span class="error">Fehlerhafte Parameter&uuml;bergabe!</span>';
+		}
+	}
+	
+	/**
+	 * Gibt die interne ID eines bestimmten Benutzers aus
+	 * 
+	 * @param String $ma_name Nachname des Benutzers 
+	 * @param Integer $ma_email Email Adresse des Benutzers
+	 * 
+	 * @return Array $resultSet Assoziatives Array mit der Ergebnismenge der Abfrage
+	 */
+	public function getMitgliedID($ma_name = null, $ma_email = null) {
+		if(($ma_name != null) && ($ma_email == null)) {
+			$sql = "SELECT id FROM "._TBL_MA_." WHERE name = LOWER('".strtolower($ma_name)."') LIMIT 1";
+			if((!$result = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($result) != 1)) {
+				return '<span class="error">Die Abfrage lieferte kein Ergebniss!</span>';
+			} else {
+				$id_result = mysql_fetch_row($result);
+				return $id_result[0];
+			}
+		} else if(($ma_name == null) && ($ma_email != null)) {
+			$sql = "SELECT id FROM "._TBL_MA_." WHERE email = LOWER('".strtolower($ma_email)."') LIMIT 1";
+			if((!$result = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($result) != 1)) {
+				return '<span class="error">Die Abfrage lieferte kein Ergebniss!</span>';
+			} else {
+				$id_result = mysql_fetch_row($result);
+				return $id_result[0];
+			}
 		} else {
 			return '<span class="error">Fehlerhafte Parameter&uuml;bergabe!</span>';
 		}

@@ -88,11 +88,10 @@ class Accounting {
 	 */
 	public function postContributions($ma_id, $datum, $betrag, $bemerkung) {
 		$betrag = str_replace(',','.',$betrag);
-		
-		$checkSql = "SELECT * FROM "._TBL_MA_KTO_." WHERE ma_id = ".$ma_id." AND art = '-' and bemerkung LIKE ('%".$bemerkung."%')";
-		if((!$result = mysql_query($checkSql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
-			return -2;
-		} else {
+
+		$checkSql = "SELECT * FROM "._TBL_MA_KTO_." WHERE ma_id = ".$ma_id." AND art = '-' AND bemerkung LIKE ('%".$bemerkung."%')";
+
+		if((!$cResult = mysql_query($checkSql,$this->DBConn)) || (mysql_num_rows($cResult) == 0)) {
 			$sql = "INSERT INTO "._TBL_MA_KTO_." (ma_id, datum, betrag, art, bemerkung) 
 				VALUES (".$ma_id.", '".$datum."', ".($betrag*-1).", '-', '".$bemerkung."')";
 			if((!$result = mysql_query($sql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
@@ -100,6 +99,8 @@ class Accounting {
 			} else {
 				return 1;
 			}
+		} else {
+			return -2;
 		}
 	}
 	

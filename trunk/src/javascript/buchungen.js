@@ -26,7 +26,7 @@ $(function() {
 								}						
 							});
 							
-//							alert(return_val['month']);
+//							alert(return_val);
 //							alert(return_val['success']);
 //							return false;
 							

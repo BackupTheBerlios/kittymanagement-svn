@@ -216,6 +216,10 @@ h1,h2,h3 {
 	vertical-align: middle;
 	border: 0px;
 }
+.content .catdescr img{
+	vertical-align: bottom;
+	border: 0px;
+}
 /* search form */
 form {
 	padding: 0 0 6px 8px;

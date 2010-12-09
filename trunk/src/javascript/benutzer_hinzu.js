@@ -13,6 +13,17 @@ $(function() {
 			backgroundColor : "#FFFFFF"
 		});
 	});
+	$('#usr_add_form').hide();
+	
+	$('#usr_add_show')
+			.toggle(
+					function() {
+						$('#usr_add_form').show("slow");
+					},
+					function() {
+						$('#usr_add_form').hide("slow");
+					}
+			);
 
 	$("#submit")
 			.click(
@@ -49,26 +60,26 @@ $(function() {
 						}
 						
 						var dataString = 'user_add=1&vname=' + vname + '&nname=' + nname + '&email=' + email + '&kategorie=' + kategorie + '&buchen=' + buchen;
-						alert (dataString);return false;
+//						alert (dataString);return false;
 
 						var return_val;
 						$.ajax({
 							type : "POST",
 							async : false,
-							url : "../src/processes/process_kasse.php",
+							url : "../src/processes/process_benutzer.php",
 							data : dataString,
 							success : function(value) {
 								return_val = value;
 							}						
 						});
-						if(return_val == 1) {
-							$('.return_wert').html("Zahlung erfolgreich eingetragen")										
+						if(return_val != -666) {
+							$('.return_wert').html(return_val)										
 										.hide().fadeIn(1500);
-							$('#lastPayments').fadeOut('slow').load('../src/processes/process_kasse.php?zeigeEinzahlungen=1').fadeIn("slow");
-							$('#payment').get(0).reset();
-							$('.return_wert').fadeOut('slow');							
+							$('#benutzerliste').fadeOut('slow').load('../src/processes/process_benutzer.php?zeigeBenutzer=1').fadeIn("slow");
+							$('#user_add').get(0).reset();
+							$('#usr_add_form').fadeOut('slow');
 						} else {
-							$('.return_wert').html("Fehler beim eintragen der Zahlung!")										
+							$('.return_wert').html("Schwerwiegender Fehler!!!")										
 										.hide().fadeIn(1500);
 						}
 						return false;

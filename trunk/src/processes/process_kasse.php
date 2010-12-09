@@ -23,7 +23,9 @@ if($_POST['bucheBeitrag']) {
 	$faktor = $_POST['faktor']; 
 	$betrag = $_POST['betrag'];
 	$monthOfPosting = strftime("%B")." ".strftime("%Y");
+	
 	$success = $ACC->postContributions($ma_id, date("Y-m-d"), $betrag, "Monatsbeitrag - ".$monthOfPosting);
+	
 	$successComment = "";
 	
 	if($success == -2) {
