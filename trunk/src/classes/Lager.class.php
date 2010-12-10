@@ -33,6 +33,8 @@ class Lager {
 	 * @return Integer Success/Error Code
 	 */
 	public function addArtikel($sorte, $uom, $uom_short, $size) {
+		$size = str_replace(',','.',$size);
+		
 		$cSql = "SELECT * FROM "._TBL_LA_ARTIKEL_." WHERE sorte = '".$sorte."' AND uom = '".$uom."' AND size = '".$size."'";
 		if((!$result = mysql_query($cSql,$this->DBConn)) || (mysql_num_rows($result) == 0)) {
 			$sql = "INSERT INTO "._TBL_LA_ARTIKEL_." (sorte, uom, uom_short, size) VALUES ('".$sorte."', '".$uom."', '".$uom_short."', '".$size."')";
@@ -124,6 +126,7 @@ class Lager {
 	 */
 	public function checkInStockPosting($artId, $size, $singlePrice, $datum) {
 		$singlePrice = str_replace(',','.',$singlePrice);
+		$size = str_replace(',','.',$size);
 		$sql = "INSERT INTO "._TBL_LA_EINGANG." (art_id, anzahl, preis_pro_stueck, datum) 
 												VALUES (".$artId.", ".$size.", ".$singlePrice.", '".$datum."')";
 		if((!$result = mysql_query($sql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
@@ -145,6 +148,7 @@ class Lager {
 	 * @return Integer Success/Error Code
 	 */
 	public function checkOutStockPosting($datum, $ekId, $size, $cupCount) {
+		$size = str_replace(',','.',$size);
 		$vbSql = "INSERT INTO "._TBL_LA_AUSGANG." (eid, anzahl, datum) VALUES (".$ekId.", ".$size.", '".$datum."')";
 		if((!$vbResult = mysql_query($vbSql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
 			return -1;
