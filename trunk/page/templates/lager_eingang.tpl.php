@@ -21,7 +21,7 @@
         			<option value="0" selected="selected">&nbsp;-- Artikel ausw&auml;hlen --&nbsp;&nbsp;</option>
         			{if is_array($lagerArtikel)}
 						{foreach name=aussen item=artikel from=$lagerArtikel}
-							<option value="{$artikel.id}">{$artikel.sorte} ({$artikel.size} {$artikel.uom_short})</option>
+							<option value="{$artikel.id}">{$artikel.sorte} ({$artikel.size|ger_number_format} {$artikel.uom_short})</option>
 						{/foreach}
 					{else}
 						{$lagerArtikel}
@@ -50,6 +50,32 @@
 			<input name="artikelAnlegen" type="submit" id="submit" value="&raquo; Speichern " />&nbsp;<span class="return_wert"></span>
 		</form>
 	</fieldset>	
+</div>
+
+<div class="item">
+	<h1>&raquo; &Uuml;bersicht der letzten {$storageEntryDisplayCount} Lagereing&auml;nge</h1>
+	<div id="lagereingaenge">
+		{if is_array($letzteEingaenge)}
+		<table>
+			<tr>
+				<th>Datum</th>
+				<th>Anzahl</th>
+				<th>Preis pro Stck.</th>
+				<th>Sorte</th>
+			</tr>
+			{foreach name=aussen item=eingang from=$letzteEingaenge}
+			<tr>
+				<td>{$eingang.datum}</td>
+				<td class="betrag">{$eingang.anzahl}</td>
+				<td class="betrag">{$eingang.pps|ger_number_format} &euro;</td>
+				<td>{$eingang.sorte} ({$eingang.size|ger_number_format} {$eingang.uoms})</td>
+			</tr>
+			{/foreach}
+		</table>
+		{else}
+			{$letzteEingaenge}
+		{/if}
+	</div>
 </div>
 
 {include file="navigation.tpl.php"}

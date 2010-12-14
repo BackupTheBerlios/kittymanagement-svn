@@ -18,8 +18,8 @@ if($subPage == "einzahlung") {
 
 if($subPage == "beitraege") {
 	if(_BEITRAG_FIX == 1) {
-		$contribMa = number_format((_BEITRAG_SATZ * _BEITRAG_FAKTOR_MA), 2, ",", ".");
-		$contribHiWi = number_format((_BEITRAG_SATZ * _BEITRAG_FAKTOR_HIWI), 2, ",", ".");
+		$contribMa = _BEITRAG_SATZ * _BEITRAG_FAKTOR_MA;
+		$contribHiWi = _BEITRAG_SATZ * _BEITRAG_FAKTOR_HIWI;
 		$contribComment = "fix";
 	} 
 	// TODO Bereich fuer Beitrag aus DB einbauen

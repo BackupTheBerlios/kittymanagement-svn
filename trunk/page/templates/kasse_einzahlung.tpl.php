@@ -68,7 +68,7 @@
 						<td>{$val}</td>
 					{/if}
 					{if $key == "betrag"}
-						<td class="betrag">{$val} &euro;</td>
+						<td class="betrag">{$val|ger_number_format} &euro;</td>
 					{/if}
 				{/foreach}
 				</tr>

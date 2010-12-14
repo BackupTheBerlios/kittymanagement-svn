@@ -115,6 +115,59 @@ class Lager {
 	}
 	
 	/**
+	 * Selektiert die letzten Lagereing&auml;nge.<br />
+	 * Die Anzahl ist &uuml;ber den Parameter "$displayLimit" geregelt.
+	 * 
+	 * @return Ambigous <string, multitype:, NULL>
+	 */
+	public function getLastStockPostings($displayLimit = null) {
+		if ($displayLimit != null && is_int($displayLimit)) {
+			$sql =	"SELECT
+						 date_format(le.datum, '%d.%m.%Y') as datum
+						,le.anzahl
+						,round(le.preis_pro_stueck,3) AS pps
+						,la.sorte
+						,la.uom_short AS uoms
+						,la.size
+					FROM
+						 "._TBL_LA_EINGANG." le
+						,"._TBL_LA_ARTIKEL_." la
+					WHERE
+						le.art_id = la.id
+					ORDER BY
+						 le.datum desc
+						,le.art_id asc
+					LIMIT ".$displayLimit;
+		} else {
+			$sql =	"SELECT
+						 date_format(le.datum, '%d.%m.%Y') as datum
+						,le.anzahl
+						,round(le.preis_pro_stueck,3) AS pps
+						,la.sorte
+						,la.uom_short AS uoms
+						,la.size
+					FROM
+						 "._TBL_LA_EINGANG." le
+						,"._TBL_LA_ARTIKEL_." la
+					WHERE
+						le.art_id = la.id
+					ORDER BY
+						 le.datum desc
+						,le.art_id asc";
+		}
+		
+		$result = null;
+		if((!$qryResult = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($qryResult) <= 0)) {
+				$result = '<span class="error">Es ist ein Fehler aufgetreten!</span>';
+		} else {
+			while($row = mysql_fetch_assoc($qryResult)) {
+				$result[] = $row;
+			}
+		}
+		return $result;
+	}
+	
+	/**
 	 * F&uuml;gt einen Einkauf in die entsprechende Lagertabelle ein.
 	 * 
 	 * @param Integer $artId Artikel ID aus der Artikel Tabelle

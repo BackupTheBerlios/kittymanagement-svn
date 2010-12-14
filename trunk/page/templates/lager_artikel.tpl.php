@@ -52,7 +52,7 @@
 			{foreach name=aussen item=artikel from=$lagerArtikel}						
 			<tr>
 				<td>{$artikel.sorte}</td>
-				<td class="betrag">{$artikel.size} {$artikel.uom_short}</td>
+				<td class="betrag">{$artikel.size|ger_number_format} {$artikel.uom_short}</td>
 			</tr>
 			{/foreach}
 		</table>

@@ -23,7 +23,7 @@ if($_POST['bucheBeitrag']) {
 	$faktor = $_POST['faktor']; 
 	$betrag = $_POST['betrag'];
 	$monthOfPosting = strftime("%B")." ".strftime("%Y");
-	
+
 	$success = $ACC->postContributions($ma_id, date("Y-m-d"), $betrag, "Monatsbeitrag - ".$monthOfPosting);
 	
 	$successComment = "";
@@ -61,7 +61,7 @@ if($_GET['zeigeAusgaben'] == 1) {
 					$tbl .= "<td>".$value."</td>";
 				}
 				if($key == "betrag") {
-					$tbl .= '<td class="betrag">'.$value.' &euro;</td>';
+					$tbl .= '<td class="betrag">'.number_format($value, 2, ",", ".").' &euro;</td>';
 				}				
 			}
 			$tbl .= "</tr>";
@@ -98,7 +98,7 @@ if($_GET['zeigeEinzahlungen'] == 1) {
 					$tbl .= "<td>".$value."</td>";
 				}
 				if($key == "betrag") {
-					$tbl .= '<td class="betrag">'.$value.' &euro;</td>';
+					$tbl .= '<td class="betrag">'.number_format($value, 2, ",", ".").' &euro;</td>';
 				}				
 			}
 			$tbl .= "</tr>";

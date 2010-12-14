@@ -23,13 +23,13 @@
 		</tr>
 		<tr>	
 			<td>Mitarbeiter</td>
-			<td class="betrag">{$contributionFactorMA}</td>
-			<td class="betrag" id="betrag_ma">{$contributionMA}</td>
+			<td class="betrag">{$contributionFactorMA|ger_number_format}</td>
+			<td class="betrag" id="betrag_ma">{$contributionMA|ger_number_format}</td>
 		</tr>
 		<tr>	
 			<td>HiWi's</td>
-			<td class="betrag">{$contributionFactorHiWi}</td>
-			<td class="betrag" id="betrag_hiwi">{$contributionHiWi}</td>
+			<td class="betrag">{$contributionFactorHiWi|ger_number_format}</td>
+			<td class="betrag" id="betrag_hiwi">{$contributionHiWi|ger_number_format}</td>
 		</tr>
 	</table>
 </div>

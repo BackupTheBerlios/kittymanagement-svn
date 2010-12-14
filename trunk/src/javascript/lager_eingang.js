@@ -63,7 +63,7 @@ $(function() {
 						if(return_val == 1) {
 							$('.return_wert').html("Zahlung erfolgreich eingetragen")										
 										.hide().fadeIn(1500);
-							$('#lastPurchases').fadeOut('slow').load('../src/processes/process_lager.php?zeigeEingaenge=1').fadeIn("slow");
+							$('#lagereingaenge').fadeOut('slow').load('../src/processes/process_lager.php?zeigeEingaenge=1').fadeIn("slow");
 							$('#lagerEingang').get(0).reset();
 							$('.return_wert').fadeOut('slow');							
 						} else {

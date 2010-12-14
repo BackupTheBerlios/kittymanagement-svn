@@ -53,7 +53,10 @@ $SM->assign("applicationName", _APP_NAME);
 $SM->assign("applicationVersion", _APP_VERSION);
 $SM->assign("paymentDisplayCount", _PAYMENT_DISPLAY_COUNT);
 $SM->assign("spendingDisplayCount", _SPENDING_DISPLAY_COUNT);
+$SM->assign("storageEntryDisplayCount", _STORAGE_ENTRY_DISPLAY_COUNT);
+$SM->assign("storageOutgoingsDisplayCount", _STORAGE_OUTGOINGS_DISPLAY_COUNT);
 
 $MEMBER_LIST = $MA->getMitglied(true);
 $SM->assign("member_list",$MEMBER_LIST);
+
 ?>

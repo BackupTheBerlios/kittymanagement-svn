@@ -8,9 +8,9 @@ if($_POST['artikel_add'] == 1) {
 	$art_uom = $_POST['uom'];
 	$art_uom_short = $_POST['uom_short'];
 	$art_size = $_POST['size'];
-	print_r($_POST);
+	
 	$add_return = $LA->addArtikel($art_sorte, $art_uom, $art_uom_short, $art_size);
-	echo $add_return;
+	
 	if($add_return == -1) {
 		echo "Fehler beim Anlegen des Artikels";
 	} elseif($add_return == -2) {
@@ -34,7 +34,7 @@ if($_GET['zeigeArtikel'] == 1) {
 		foreach($artikelListe as $artikel) {
 			$tbl .= "<tr>";
 				$tbl .= "<td>".$artikel['sorte']."</td>";
-				$tbl .= '<td class="betrag">'.$artikel['size'].' '.$artikel['uom_short'].'</td>';
+				$tbl .= '<td class="betrag">'.number_format($artikel['size'], 2, ",", ".").' '.$artikel['uom_short'].'</td>';
 			$tbl .= "</tr>";
 		}
 		$tbl .= "</table>";
@@ -63,6 +63,10 @@ if($_POST['lager_eingang'] == 1) {
 	
 	echo $LA->checkInStockPosting($artikel_id, $size, $singlePrice, $date);
 
+}
+
+if($_GET['zeigeEingaenge'] == 1) {
+	echo "Test";
 }
 
 ?>
