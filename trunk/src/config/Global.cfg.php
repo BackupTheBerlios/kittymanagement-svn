@@ -16,9 +16,9 @@ define("_BEITRAG_FAKTOR_HIWI", 0.5);
 
 // Verbindungsinfos
 define("_DB_HOST","localhost");
-define("_DB_USER","kaffee");
+define("_DB_USER","kaffeekasse");
 define("_DB_PASSWD","kaffee");
-define("_DB_DATABASE","kaffee");
+define("_DB_DATABASE","kaffeekasse");
 
 // Tabellen
 define("_TBL_MA_","mitglieder_stamm");
@@ -39,7 +39,7 @@ define("_TBL_GER_ZAEHLER_","maschine_tassen");
  */
 
 // Basisverzeichnis
-define("_BASE_DIR","/var/www/projekte/Kaffeekasse/");
+define("_BASE_DIR","/var/www/projects/Kaffeekasse/");
 
 // Pfad zu den Libs
 define("_LIB_DIR",_BASE_DIR."lib/");
@@ -71,5 +71,7 @@ define("_APP_VERSION", "0.5 alpha");
 
 define("_PAYMENT_DISPLAY_COUNT", 10);
 define("_SPENDING_DISPLAY_COUNT", 10);
+define("_STORAGE_ENTRY_DISPLAY_COUNT", 10);
+define("_STORAGE_OUTGOINGS_DISPLAY_COUNT", 10);
 
 ?>
