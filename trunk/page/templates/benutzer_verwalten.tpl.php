@@ -34,7 +34,7 @@
 					<label class="error" for="kategorie" id="kategorie_error">Bitte w&auml;hlen Sie eine Teilnehmerkategorie</label>
 				</div>
 				<div>
-					<label for="buchen">Beitrittsmonat buchen? </label>
+					<label for="buchen"></label>
 					<input type="checkbox" name="buchen" value="1" id="buchen" checked="checked" /> Beitrittsmonat buchen<br />
 					<label class="error" for="buchen" id="buchen_error">Bitte w&auml;hlen eine Option!</label>
 				</div>

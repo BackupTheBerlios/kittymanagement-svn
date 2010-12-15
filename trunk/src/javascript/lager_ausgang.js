@@ -16,6 +16,16 @@ $(function() {
 	
 	$('#datum').datepicker();
 	
+//	$("#showCupCount").css("display", "none");
+	$("#isCoffee").click(function() { 
+		if($("#isCoffee").is(":checked")) {
+			$("#showCupCount").show("fast");
+		} else {
+			$("#showCupCount").hide("fast");
+		}
+	});
+	
+	
 	$("#submit")
 			.click(
 					function() {
@@ -27,8 +37,8 @@ $(function() {
 							$("input#datum").focus();
 							return false;
 						}
-						var artikel = $("select#artikel").val();
-						if (artikel == "0") {
+						var ekId = $("select#artikel").val();
+						if (ekId == "0") {
 							$("label#artikel_error").show();
 							$("select#artikel").focus();
 							return false;
@@ -39,15 +49,19 @@ $(function() {
 							$("input#size").focus();
 							return false;
 						}
-						var preis_einzel = $("input#preis_einzel").val();
-						var preis_gesamt = $("input#preis_gesamt").val();
 						
-						if ((preis_einzel == "") && (preis_gesamt == "")) {
-							$("label#preis_error").show();
-							return false;
+						var cupCount = -1;
+						var isCoffee = $("input#isCoffee:checked").val();
+						if (typeof(isCoffee) != "undefined") {
+							cupCount = $("input#cupCount").val();
+							if (cupCount == "") {
+								$("label#cupCount_error").show();
+								$("input#cupCount").focus();
+								return false;
+							}
 						}
-						
-						var dataString = 'lager_eingang=1&datum=' + datum + '&artikel=' + artikel + '&size=' + size + '&preis_einzel=' + preis_einzel + '&preis_gesamt=' + preis_gesamt;
+												
+						var dataString = 'lager_ausgang=1&datum=' + datum + '&ekId=' + ekId + '&size=' + size + '&cupCount=' + cupCount;
 //						alert (dataString);return false;
 		
 						var return_val;
@@ -60,14 +74,14 @@ $(function() {
 								return_val = value;
 							}						
 						});
-						if(return_val == 1) {
-							$('.return_wert').html("Buchung erfolgreich eingetragen")										
+						if(return_val != -666) {
+							$('.return_wert').html(return_val)										
 										.hide().fadeIn(1500);
-							$('#lagereingaenge').fadeOut('slow').load('../src/processes/process_lager.php?zeigeEingaenge=1').fadeIn("slow");
-							$('#lagerEingang').get(0).reset();
+							$('#lagerausgaenge').fadeOut('slow').load('../src/processes/process_lager.php?zeigeAusgaenge=1').fadeIn("slow");
+							$('#lagerAusgang').get(0).reset();
 							$('.return_wert').fadeOut('slow');							
 						} else {
-							$('.return_wert').html("Fehler beim eintragen der Buchung!")										
+							$('.return_wert').html("Hier ist ein genereller Fehler aufgetreten!")										
 										.hide().fadeIn(1500);
 						}
 						return false;

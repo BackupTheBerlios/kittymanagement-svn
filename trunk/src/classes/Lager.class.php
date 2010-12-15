@@ -102,7 +102,7 @@ class Lager {
 							ON le.art_id = art.id
 					ORDER BY ekDatum
 				";
-		
+
 		$result = null;
 		if((!$qryResult = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($qryResult) <= 0)) {
 				$result = '<span class="error">Es ist ein Fehler aufgetreten!</span>';
@@ -122,6 +122,60 @@ class Lager {
 	 */
 	public function getLastStockPostings($displayLimit = null) {
 		if ($displayLimit != null && is_int($displayLimit)) {
+			$sql =	"SELECT
+						 date_format(le.datum, '%d.%m.%Y') as datum
+						,le.anzahl
+						,round(le.preis_pro_stueck,3) AS pps
+						,la.sorte
+						,la.uom_short AS uoms
+						,la.size
+					FROM
+						 "._TBL_LA_EINGANG." le
+						,"._TBL_LA_ARTIKEL_." la
+					WHERE
+						le.art_id = la.id
+					ORDER BY
+						 le.datum desc
+						,le.art_id asc
+					LIMIT ".$displayLimit;
+		} else {
+			$sql =	"SELECT
+						 date_format(le.datum, '%d.%m.%Y') as datum
+						,le.anzahl
+						,round(le.preis_pro_stueck,3) AS pps
+						,la.sorte
+						,la.uom_short AS uoms
+						,la.size
+					FROM
+						 "._TBL_LA_EINGANG." le
+						,"._TBL_LA_ARTIKEL_." la
+					WHERE
+						le.art_id = la.id
+					ORDER BY
+						 le.datum desc
+						,le.art_id asc";
+		}
+		
+		$result = null;
+		if((!$qryResult = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($qryResult) <= 0)) {
+				$result = '<span class="error">Es ist ein Fehler aufgetreten!</span>';
+		} else {
+			while($row = mysql_fetch_assoc($qryResult)) {
+				$result[] = $row;
+			}
+		}
+		return $result;
+	}
+	
+/**
+	 * Selektiert die letzten Lagerausg&auml;nge.<br />
+	 * Die Anzahl ist &uuml;ber den Parameter "$displayLimit" geregelt.
+	 * 
+	 * @return Ambigous <string, multitype:, NULL>
+	 */
+	public function getLastStockWithdrawals($displayLimit = null) {
+		if ($displayLimit != null && is_int($displayLimit)) {
+			// @TODO SQL anpassen, Lagerausgaenge mit ekId verknuepfen und Artikelbeschreibung
 			$sql =	"SELECT
 						 date_format(le.datum, '%d.%m.%Y') as datum
 						,le.anzahl
@@ -191,7 +245,8 @@ class Lager {
 	
 	/**
 	 * F&uuml;gt einen Verbrauch in die entsprechende Lagertabelle ein.<br />
-	 * Schreibt zus&auml;tzlich den aktuellen Tassenz&auml;hlerstand in die Datenbank
+	 * Schreibt zus&auml;tzlich den aktuellen Tassenz&auml;hlerstand in die Datenbank, <br />
+	 * wenn die Entnahme eine Kaffeeentnahme ist.
 	 * 
 	 * @param Date $datum
 	 * @param Integer $ekId
@@ -206,9 +261,13 @@ class Lager {
 		if((!$vbResult = mysql_query($vbSql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
 			return -1;
 		} else {
-			$cupSql = "INSERT INTO "._TBL_GER_ZAEHLER_." (zaehlerstand, datum) VALUES (".$cupCount.", '".$datum."')";
-			if((!$cupResult = mysql_query($cupSql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
-				return -2;
+			if($cupCount != -1) {
+				$cupSql = "INSERT INTO "._TBL_GER_ZAEHLER_." (zaehlerstand, datum) VALUES (".$cupCount.", '".$datum."')";
+				if((!$cupResult = mysql_query($cupSql,$this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
+					return -2;
+				} else {
+					return 2;
+				}
 			} else {
 				return 1;
 			}

@@ -1,30 +1,30 @@
 {include file="header.tpl.php"} 
 
 {literal}
-<script type="text/javascript" src="../src/javascript/lager_eingang.js"></script>
+<script type="text/javascript" src="../src/javascript/lager_ausgang.js"></script>
 {/literal} 
 
 <div class="item">
 
-	<h1>&raquo; Lager &raquo; Eingang buchen</h1>
+	<h1>&raquo; Lager &raquo; Ausgang buchen</h1>
 	
 	<fieldset>
-		<form name="lagerEingang" id="lagerEingang" action="" method="post">
+		<form name="lagerAusgang" id="lagerAusgang" action="" method="post">
 			<div>
-				<label for="datum">Einkaufsdatum </label>
+				<label for="datum">Entnahmedatum </label>
 				<input name="datum"	type="text" id="datum" class="styled" size="8" maxlength="10" />
-				<label class="error" for="datum" id="datum_error">Bitte geben Sie ein Einkaufsdatum an</label>
+				<label class="error" for="datum" id="datum_error">Bitte geben Sie ein Entnahmedatum an</label>
 			</div>
 			<div>
 				<label for="artikel">Artikel </label>
 				<select name="artikel" id="artikel" class="styled">
         			<option value="0" selected="selected">&nbsp;-- Artikel ausw&auml;hlen --&nbsp;&nbsp;</option>
-        			{if is_array($lagerArtikel)}
-						{foreach name=aussen item=artikel from=$lagerArtikel}
-							<option value="{$artikel.id}">{$artikel.sorte} ({$artikel.size|ger_number_format} {$artikel.uom_short})</option>
+        			{if is_array($lagerBestand)}
+						{foreach name=aussen item=artikel from=$lagerBestand}
+							<option value="{$artikel.ekId}">{$artikel.artSorte} ({$artikel.artSize|ger_number_format} {$artikel.artUOMshort}) [Lagerbestand: {$artikel.lagerBestand}]</option>
 						{/foreach}
 					{else}
-						{$lagerArtikel}
+						<span class="error">Hier ist ein schwerer Fehler aufgetreten</span>
 					{/if}
         		</select>
         		<label class="error" for="artikel" id="artikel_error">Bitte w&auml;hlen Sie einen Artikel aus</label>
@@ -35,26 +35,23 @@
 				<label class="error" for="size_short" id="size_error">Bitte geben Sie eine St&uuml;ckzahl an</label>
 			</div>
 			<div>
-				<label for="preis_einzel">Einzelpreis </label>
-				<input name="preis_einzel" type="text" id="preis_einzel" class="styled betrag" size="8" maxlength="8" /> EURO (&euro;)				
+				<label for="isCoffee"></label>
+				<input type="checkbox" name="isCoffee" value="1" id="isCoffee" checked="checked" /> Ist Kaffeeentnahme
 			</div>
-			<div>
-				<u>oder</u>
-				<label class="error" for="preis" id="preis_error">Sie m&uuml;ssen einen Einzel oder Gesamtpreis angeben</label>
-			</div>
-			<div>
-				<label for="preis_gesamt">Gesamtpreis </label>
-				<input name="preis_gesamt" type="text" id="preis_gesamt" class="styled betrag" size="8" maxlength="8" /> EURO (&euro;)
+			<div id="showCupCount">
+				<label for="cupCount">Z&auml;hlerstand Kaffee </label>
+				<input name="cupCount" type="text" id="cupCount" class="styled betrag" size="8" maxlength="8" />
+				<label class="error" for="size_short" id="cupCount_error">Bitte geben Sie einen Z&auml;hlerstand an</label>
 			</div>
 			
-			<input name="einbuchen" type="submit" id="submit" value="&raquo; Speichern " />&nbsp;<span class="return_wert"></span>
+			<input name="ausbuchen" type="submit" id="submit" value="&raquo; Speichern " />&nbsp;<span class="return_wert"></span>
 		</form>
 	</fieldset>	
 </div>
 
 <div class="item">
-	<h1>&raquo; &Uuml;bersicht der letzten {$storageEntryDisplayCount} Lagereing&auml;nge</h1>
-	<div id="lagereingaenge">
+	<h1>&raquo; &Uuml;bersicht der letzten {$storageOutgoingsDisplayCount} Lagerausg&auml;nge</h1>
+	<div id="lagerausgaenge">
 		{if is_array($letzteEingaenge)}
 		<table>
 			<tr>

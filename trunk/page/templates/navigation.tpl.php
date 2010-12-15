@@ -10,7 +10,7 @@
 	<h1>Lager</h1>
 	<ul>
 		<li><a href="lager.php?p=eingang">&raquo; Eingang</a></li>
-		<li><a href="index.html">&raquo; Ausgang</a></li>
+		<li><a href="lager.php?p=ausgang">&raquo; Ausgang</a></li>
 	</ul>
 	
 	<h1>Statistik</h1>

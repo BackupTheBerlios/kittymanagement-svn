@@ -66,7 +66,84 @@ if($_POST['lager_eingang'] == 1) {
 }
 
 if($_GET['zeigeEingaenge'] == 1) {
-	echo "Test";
+	$eingangsListe = $LA->getLastStockPostings(_STORAGE_ENTRY_DISPLAY_COUNT);
+	
+	if(is_array($eingangsListe)) {
+		$tbl = '<table>
+				<tr>
+					<th>Datum</th>
+					<th>Anzahl</th>
+					<th>Preis pro Stck.</th>
+					<th>Sorte</th>
+				</tr>';
+		foreach($eingangsListe as $eingang) {
+			$tbl .= "<tr>";
+				$tbl .= "<td>".$eingang['datum']."</td>";
+				$tbl .= '<td class="betrag">'.$eingang['anzahl'].'</td>';
+				$tbl .= '<td class="betrag">'.number_format($eingang['pps'], 2, ",", ".").' &euro;</td>';
+				$tbl .= '<td>'.htmlentities($eingang['sorte']).' ('.number_format($eingang['size'], 2, ",", ".").' '.$eingang['uoms'].')</td>';
+			$tbl .= "</tr>";
+		}
+		$tbl .= "</table>";
+		
+		echo $tbl;
+	} else {
+		echo $eingangsListe;
+	}
+	
 }
 
+if($_POST['lager_ausgang'] == 1) {
+	
+	$datum = $_POST['datum'];
+	$ekId = $_POST['ekId'];
+	$size = $_POST['size'];
+	$cupCount = $_POST['cupCount'];
+	
+	$dtmp = explode(".", $datum); // dd mm yyyy
+	$datum = $dtmp[2].'-'.$dtmp[1].'-'.$dtmp[0]; // yyyy mm dd
+	
+	$add_return = $LA->checkOutStockPosting($datum, $ekId, $size, $cupCount);
+	
+	if($add_return == -1) {
+		echo "Der Lagerausgang konnte nicht gebucht werden!";
+	} elseif($add_return == -2) {
+		echo "Der angegebene Z&auml;hlerstand konnte nicht gebucht werden!";
+	} elseif($add_return == 1) {
+		echo "Lagerentnahme erfolgreich gebucht, kein Z&auml;hlerstand eingetragen!";
+	} elseif($add_return == 2) {
+		echo "Lagerentnahme erfolgreich gebucht, Z&auml;hlerstand eingetragen!";
+	} else {
+		echo -666;
+	}
+	
+}
+
+if($_GET['zeigeAusgaenge'] == 1) {
+	$ausgangsListe = $LA->getLastStockWithdrawals(_STORAGE_ENTRY_DISPLAY_COUNT);
+	
+	if(is_array($ausgangsListe)) {
+		$tbl = '<table>
+				<tr>
+					<th>Datum</th>
+					<th>Anzahl</th>
+					<th>Preis pro Stck.</th>
+					<th>Sorte</th>
+				</tr>';
+		foreach($ausgangsListe as $ausgang) {
+			$tbl .= "<tr>";
+				$tbl .= "<td>".$ausgang['datum']."</td>";
+				$tbl .= '<td class="betrag">'.$ausgang['anzahl'].'</td>';
+				$tbl .= '<td class="betrag">'.number_format($ausgang['pps'], 2, ",", ".").' &euro;</td>';
+				$tbl .= '<td>'.htmlentities($ausgang['sorte']).' ('.number_format($ausgang['size'], 2, ",", ".").' '.$ausgang['uoms'].')</td>';
+			$tbl .= "</tr>";
+		}
+		$tbl .= "</table>";
+		
+		echo $tbl;
+	} else {
+		echo $ausgangsListe;
+	}
+	
+}
 ?>
