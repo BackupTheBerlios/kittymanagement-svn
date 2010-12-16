@@ -21,6 +21,7 @@ require_once(_FUNC_DIR.'/mailcheck.fkt.php');
 // Klassen einbinden
 require_once(_CLASS_DIR.'/MySmarty.class.php');
 require_once(_CLASS_DIR.'/DBMySql.class.php');
+require_once(_CLASS_DIR.'/MyPHPMailer.class.php');
 //require_once(_CLASS_DIR.'/DBHelper.class.php');
 require_once(_CLASS_DIR.'/Mitglieder.class.php');
 require_once(_CLASS_DIR.'/Lager.class.php');
@@ -40,6 +41,10 @@ try {
 	echo "</pre>";
 }
 
+$MAILER = new MyPHPMailer();
+echo "<pre>";
+print_r($MAILER);
+echo "</pre>";
 //$DBH = new DBHelper($DB->connection);
 $MA = new Mitglieder($DB->connection);
 $LA = new Lager($DB->connection);

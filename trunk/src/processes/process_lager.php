@@ -120,21 +120,19 @@ if($_POST['lager_ausgang'] == 1) {
 }
 
 if($_GET['zeigeAusgaenge'] == 1) {
-	$ausgangsListe = $LA->getLastStockWithdrawals(_STORAGE_ENTRY_DISPLAY_COUNT);
+	$ausgangsListe = $LA->getLastStockWithdrawals(_STORAGE_OUTGOINGS_DISPLAY_COUNT);
 	
 	if(is_array($ausgangsListe)) {
 		$tbl = '<table>
 				<tr>
 					<th>Datum</th>
 					<th>Anzahl</th>
-					<th>Preis pro Stck.</th>
 					<th>Sorte</th>
 				</tr>';
 		foreach($ausgangsListe as $ausgang) {
 			$tbl .= "<tr>";
 				$tbl .= "<td>".$ausgang['datum']."</td>";
 				$tbl .= '<td class="betrag">'.$ausgang['anzahl'].'</td>';
-				$tbl .= '<td class="betrag">'.number_format($ausgang['pps'], 2, ",", ".").' &euro;</td>';
 				$tbl .= '<td>'.htmlentities($ausgang['sorte']).' ('.number_format($ausgang['size'], 2, ",", ".").' '.$ausgang['uoms'].')</td>';
 			$tbl .= "</tr>";
 		}

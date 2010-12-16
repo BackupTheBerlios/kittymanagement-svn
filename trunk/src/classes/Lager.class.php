@@ -93,13 +93,14 @@ class Lager {
 							GROUP BY eid
 						) 	AS la
 							ON la.eid = le.lfdnr
-							AND la.anz < le.anzahl
+							AND la.anz <= le.anzahl
 					JOIN
 						(
 							SELECT id, sorte, size, uom_short
 							FROM "._TBL_LA_ARTIKEL_."
 						)	AS art
 							ON le.art_id = art.id
+					WHERE (le.anzahl - ifnull(la.anz, 0)) > 0
 					ORDER BY ekDatum
 				";
 
@@ -175,39 +176,44 @@ class Lager {
 	 */
 	public function getLastStockWithdrawals($displayLimit = null) {
 		if ($displayLimit != null && is_int($displayLimit)) {
-			// @TODO SQL anpassen, Lagerausgaenge mit ekId verknuepfen und Artikelbeschreibung
 			$sql =	"SELECT
-						 date_format(le.datum, '%d.%m.%Y') as datum
-						,le.anzahl
-						,round(le.preis_pro_stueck,3) AS pps
-						,la.sorte
-						,la.uom_short AS uoms
-						,la.size
+						 aus.eid AS ekID
+						,aus.anzahl AS anzahl
+						,date_format(aus.datum, '%d.%m.%Y') AS datum
+						,art.sorte AS sorte
+						,art.uom_short AS uoms
+						,art.size AS size
 					FROM
-						 "._TBL_LA_EINGANG." le
-						,"._TBL_LA_ARTIKEL_." la
+						 "._TBL_LA_AUSGANG." aus
+						,"._TBL_LA_EINGANG." ein
+						,"._TBL_LA_ARTIKEL_." art
 					WHERE
-						le.art_id = la.id
+						aus.eid = ein.lfdnr
+						AND
+						art.id = ein.art_id
 					ORDER BY
-						 le.datum desc
-						,le.art_id asc
+						 aus.datum DESC
+						,aus.lfdnr DESC
 					LIMIT ".$displayLimit;
 		} else {
 			$sql =	"SELECT
-						 date_format(le.datum, '%d.%m.%Y') as datum
-						,le.anzahl
-						,round(le.preis_pro_stueck,3) AS pps
-						,la.sorte
-						,la.uom_short AS uoms
-						,la.size
+						 aus.eid AS ekID
+						,aus.anzahl AS anzahl
+						,date_format(aus.datum, '%d.%m.%Y') AS datum
+						,art.sorte AS sorte
+						,art.uom_short AS uoms
+						,art.size AS size
 					FROM
-						 "._TBL_LA_EINGANG." le
-						,"._TBL_LA_ARTIKEL_." la
+						 "._TBL_LA_AUSGANG." aus
+						,"._TBL_LA_EINGANG." ein
+						,"._TBL_LA_ARTIKEL_." art
 					WHERE
-						le.art_id = la.id
+						aus.eid = ein.lfdnr
+						AND
+						art.id = ein.art_id
 					ORDER BY
-						 le.datum desc
-						,le.art_id asc";
+						 aus.datum DESC
+						,aus.lfdnr DESC";
 		}
 		
 		$result = null;

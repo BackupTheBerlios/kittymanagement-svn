@@ -60,6 +60,8 @@ define("_SMARTY_TPLC_DIR",_BASE_DIR."page/templates_c/");
 define("_SMARTY_CFG_DIR",_BASE_DIR."src/config/");
 define("_SMARTY_CACHE_DIR",_BASE_DIR."page/cache/");
 
+// PHPMailer
+define("_PHPMAILER_DIR",_LIB_DIR."PHPMailer_5.1/");
 /**
  * Version und Name
  */

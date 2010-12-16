@@ -52,20 +52,18 @@
 <div class="item">
 	<h1>&raquo; &Uuml;bersicht der letzten {$storageOutgoingsDisplayCount} Lagerausg&auml;nge</h1>
 	<div id="lagerausgaenge">
-		{if is_array($letzteEingaenge)}
+		{if is_array($letzteAusgaenge)}
 		<table>
 			<tr>
 				<th>Datum</th>
 				<th>Anzahl</th>
-				<th>Preis pro Stck.</th>
 				<th>Sorte</th>
 			</tr>
-			{foreach name=aussen item=eingang from=$letzteEingaenge}
+			{foreach name=aussen item=ausgang from=$letzteAusgaenge}
 			<tr>
-				<td>{$eingang.datum}</td>
-				<td class="betrag">{$eingang.anzahl}</td>
-				<td class="betrag">{$eingang.pps|ger_number_format} &euro;</td>
-				<td>{$eingang.sorte} ({$eingang.size|ger_number_format} {$eingang.uoms})</td>
+				<td>{$ausgang.datum}</td>
+				<td class="betrag">{$ausgang.anzahl}</td>
+				<td>{$ausgang.sorte} ({$ausgang.size|ger_number_format} {$ausgang.uoms})</td>
 			</tr>
 			{/foreach}
 		</table>
