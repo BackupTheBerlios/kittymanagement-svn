@@ -62,6 +62,16 @@ define("_SMARTY_CACHE_DIR",_BASE_DIR."page/cache/");
 
 // PHPMailer
 define("_PHPMAILER_DIR",_LIB_DIR."PHPMailer_5.1/");
+define("_MAILER_IS_SMTP", 1); // 1 = use SMTP (default) | 0 = dont use SMTP
+define("_MAILER_HOST", 'mail.uni-bonn.de'); // SMTP server
+define("_MAILER_SMTP_DEBUG", 1); // sets SMTP gebug Level (0 = off | 1 = errors & messages | 2 = messages only)
+define("_MAILER_SMTP_AUTH", true); // enable SMTP authentication
+define("_MAILER_HOST_PORT", 25); // set the SMTP port for the GMAIL server
+define("_MAILER_MAIL_IS_HTML", 1); // defines if mail is plain text (0) oder html (1)
+define("_MAILER_USER_EMAIL", 'beckmerhagen@igg.uni-bonn.de'); // SMTP account username
+define("_MAILER_USER_PASSWD", 'r4gn4ro3k'); // SMTP account password
+define("_MAILER_USER_FULL_NAME", 'Tobias Beckmerhagen'); // Full Name or identifier / description of the sender
+
 /**
  * Version und Name
  */

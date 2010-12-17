@@ -42,9 +42,15 @@ try {
 }
 
 $MAILER = new MyPHPMailer();
-echo "<pre>";
-print_r($MAILER);
-echo "</pre>";
+//echo "<pre>";
+//print_r($MAILER);
+//echo "</pre>";
+
+
+$MAILER->setMessageText('<b>HTML</b> TEST mail<br><br><b style="color:#FF0000;">FEHLER!!!</b>');
+$MAILER->setSubject("Kleine Testemail der Kaffeekasse");
+//$MAILER->bla();
+
 //$DBH = new DBHelper($DB->connection);
 $MA = new Mitglieder($DB->connection);
 $LA = new Lager($DB->connection);
