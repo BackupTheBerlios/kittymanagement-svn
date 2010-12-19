@@ -7,6 +7,10 @@
 <meta name="keywords" content="Kaffeekassenverwaltung, Kaffee, Kasse, Management, Tobias Beckmerhagen, Tobias, Beckmerhagen, GhostScripter, LostBoi, PHP, CSS, HTML, JavaScript, jQuery"/> 
 <meta name="author" content="Tobias Beckmerhagen"/> 
 
+<link rel="shortcut icon" href="../page/images/favicon.ico" />
+<link rel="icon" href="../page/images/favicon.ico" type="image/x-icon" />
+
+
 <title>{$applicationTitleName}</title>
 
 <link rel="stylesheet" type="text/css" media="all" href="../page/style/base.css" />
