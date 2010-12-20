@@ -37,6 +37,7 @@
 	{if is_array($member_list)}
 	<div class="catdescr">Buchungs&uuml;bersicht</div>
 	<form name="contributions" id="contributions" action="" method="post">
+		<input type="checkbox" name="mail" value="1" id="mail" checked="checked" /> Monatsabrechnung per E-Mail versenden<br /><br />
 		<input name="buchungen" type="submit" id="submit" value="&raquo; Buchungen erzeugen" />
 	</form>
 	<table>
@@ -45,6 +46,7 @@
 			<th>Faktor</th>
 			<th>Beitragsmonat</th>
 			<th>Buchung</th>
+			<th>E-Mail</th>
 		</tr>
 		{foreach name=aussen item=member from=$member_list}
 		<tr>
@@ -59,6 +61,7 @@
 			</td>
 			<td id="{$member.id}_contribMonth"></td>
 			<td id="{$member.id}_contribEntered"></td>
+			<td id="{$member.id}_contribMailSend"></td>
 		</tr>
 		{/foreach}	
 	</table>

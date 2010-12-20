@@ -60,8 +60,12 @@ $(function() {
 						if (typeof(buchen) == "undefined") {
 							buchen = 0;
 						}
+						var mail = $("input#mail:checked").val();
+						if (typeof(mail) == "undefined") {
+							mail = 0;
+						}
 						
-						var dataString = 'user_add=1&vname=' + vname + '&nname=' + nname + '&email=' + email + '&kategorie=' + kategorie + '&buchen=' + buchen;
+						var dataString = 'user_add=1&vname=' + vname + '&nname=' + nname + '&email=' + email + '&kategorie=' + kategorie + '&buchen=' + buchen + '&mail=' + mail;
 //						alert (dataString);return false;
 
 						var return_val;

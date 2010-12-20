@@ -38,6 +38,11 @@
 					<input type="checkbox" name="buchen" value="1" id="buchen" checked="checked" /> Beitrittsmonat buchen<br />
 					<label class="error" for="buchen" id="buchen_error">Bitte w&auml;hlen eine Option!</label>
 				</div>
+				<div>
+					<label for="mail"></label>
+					<input type="checkbox" name="mail" value="1" id="mail" checked="checked" /> Willkommensmail schicken<br />
+					<label class="error" for="mail" id="mail_error">Bitte w&auml;hlen eine Option!</label>
+				</div>
 				<input name="user_add" type="submit" id="submit" value="&raquo; Speichern " />
 			</form>
 		</fieldset>	

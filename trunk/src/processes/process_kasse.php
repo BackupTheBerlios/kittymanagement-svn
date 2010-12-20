@@ -22,6 +22,7 @@ if($_POST['bucheBeitrag']) {
 	$ma_id = $_POST['ma_id'];
 	$faktor = $_POST['faktor']; 
 	$betrag = $_POST['betrag'];
+	$sendMail = $_POST['mail'];
 	$monthOfPosting = strftime("%B")." ".strftime("%Y");
 
 	$success = $ACC->postContributions($ma_id, date("Y-m-d"), $betrag, "Monatsbeitrag - ".$monthOfPosting);
@@ -35,7 +36,34 @@ if($_POST['bucheBeitrag']) {
 		$successComment = "Fehler!";
 	}
 	
-	$returnValues = array('month' => $monthOfPosting, 'success' => $success, 'successComment' => $successComment);
+	$mailSend = 0;
+	if(($success == 1) && ($sendMail == 1)) {
+		$member = null;
+		foreach($MEMBER_LIST as $k => $v) {
+			if($v['id'] == $ma_id) {
+				$member = $v;
+				break;
+			}
+		}
+		
+		$MAILER->setSubject('Kaffeekassenabrechnung: '.$monthOfPosting);
+		$MAILER->setMessageText(
+			'Hallo '.$member['vorname'].',<br />
+			f&uuml;r den Monat '.$monthOfPosting.' wird Dir eine Geb&uuml;hr von '.$betrag.' &euro; in Rechnung gestellt.<br />
+			Dein aktueller Kontostand lautet: xxx,yy &euro;.<br />
+			Bitte begleiche Deine Ausst&auml;nde umgehend.<br /><br />
+			Beste Gr&uuml;&szlig;e,<br />
+			{Kassenwart}'
+		);
+		$mailSuccess = $MAILER->sendMail($member['email'], $member['name'].', '.$member['vorname']);
+		if($mailSuccess == 1) {
+			$mailSend = 1;
+		} else {
+			$mailSend = -1;
+		}
+	}
+	
+	$returnValues = array('month' => $monthOfPosting, 'success' => $success, 'successComment' => $successComment, 'mailSend' => $mailSuccess);
 	
 	echo json_encode($returnValues);
 	

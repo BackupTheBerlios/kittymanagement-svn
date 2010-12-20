@@ -56,9 +56,11 @@ if($_POST['lager_eingang'] == 1) {
 
 	$singlePrice = 0;
 	if($_POST['preis_einzel']) {
-		$singlePrice = $_POST['preis_einzel'];
+		$price = str_replace(',','.',$_POST['preis_einzel']);
+		$singlePrice = $price;
 	} else {
-		$singlePrice = $_POST['preis_gesamt'] / $size;
+		$price = str_replace(',','.',$_POST['preis_gesamt']);
+		$singlePrice = $price / $size;
 	}
 	
 	echo $LA->checkInStockPosting($artikel_id, $size, $singlePrice, $date);

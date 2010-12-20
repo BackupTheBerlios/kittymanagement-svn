@@ -2,6 +2,8 @@
 
 require(_PHPMAILER_DIR.'class.phpmailer.php');
 
+// @TODO Ueberarbeiten der Mailer Klasse. - Auslagern aller Mailmoeglichkeiten / -funktionen in einzelne Methoden mit entsprechenden Rueckgabewerten.
+
 class MyPHPMailer extends PHPMailer {
 	
 	private $myMailer = null;
@@ -47,6 +49,8 @@ class MyPHPMailer extends PHPMailer {
 
 			$this->myMailer->AddReplyTo(_MAILER_USER_EMAIL, _MAILER_USER_FULL_NAME);
 			
+			$this->myMailer->CharSet = _MAILER_CHARSET;
+			
 		}
 		
 	}
@@ -59,15 +63,14 @@ class MyPHPMailer extends PHPMailer {
 		$this->myMailer->MsgHTML($iMessageText);
 	}
 		
-	public function bla() {
-		
-		$address = "svn_geoinfo@igg.uni-bonn.de";
-		$this->myMailer->AddAddress($address, "SVN");
+	public function sendMail($recipient_mail, $receipient_name) {
+				
+		$this->myMailer->AddAddress($recipient_mail, $receipient_name);
 
 		if(!$this->myMailer->Send()) {
-			echo "Mailer Error: " . $this->myMailer->ErrorInfo;
+			return $this->myMailer->ErrorInfo;
 		} else {
-			echo "Message sent!";
+			return 1;
 		}
 	}
 

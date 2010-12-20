@@ -9,6 +9,7 @@ if($_POST['user_add'] == 1) {
 	$ma_email = $_POST['email'];
 	$ma_kategorie = $_POST['kategorie'];
 	$ma_buchen = $_POST['buchen'];
+	$send_mail = $_POST['mail'];
 	
 	$addReturn = $MA->addMitglied($ma_name, $ma_vname, $ma_email, $ma_kategorie);
 	
@@ -46,6 +47,19 @@ if($_POST['user_add'] == 1) {
 				echo '<i>'.$ma_name.', '.$ma_vname.'</i> erfolgreich hinzugef&uuml;gt und Buchung f&uuml;r den Eintrittsmonat erzeugt!';
 			} else {
 				echo '<i>'.$ma_name.', '.$ma_vname.'</i> erfolgreich hinzugef&uuml;gt!';
+			}
+			if($send_mail == 1) {
+				$MAILER->setSubject("Willkommen bei der Kaffeekasse des IGG");
+				$MAILER->setMessageText(
+					'Hallo <b>'.htmlspecialchars($ma_vname).'</b> und willkommen,<br />
+					als Mitglied der Kaffeekasse des IGG.<br />
+					Dein Benutzeraccount wurde erfolgreich angelegt.<br />
+					Du wirst monatlich eine E-Mail mit der Abrechnung und Deinem aktuellen Kontostand erhalten.<br />
+					Bei Fragen rund um die Kaffeekasse wende Dich bitte vertrauensvoll an den Kassenwart.<br /><br />
+					Beste Gr&uuml;&szlig;e,<br />
+					{Kassenwart}'
+				);
+				$MAILER->sendMail($ma_email, $ma_name.', '.$ma_vname);
 			}
 		break;
 		

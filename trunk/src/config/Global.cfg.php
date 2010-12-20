@@ -71,6 +71,7 @@ define("_MAILER_MAIL_IS_HTML", 1); // defines if mail is plain text (0) oder htm
 define("_MAILER_USER_EMAIL", 'beckmerhagen@igg.uni-bonn.de'); // SMTP account username
 define("_MAILER_USER_PASSWD", 'r4gn4ro3k'); // SMTP account password
 define("_MAILER_USER_FULL_NAME", 'Tobias Beckmerhagen'); // Full Name or identifier / description of the sender
+define("_MAILER_CHARSET", 'UTF-8'); // define the default Charset for emails
 
 /**
  * Version und Name
