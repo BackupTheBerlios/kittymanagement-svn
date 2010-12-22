@@ -31,16 +31,12 @@ $(function() {
 								}						
 							});
 							
-//							alert(return_val);
-//							alert(return_val['success']);
-//							return false;
-							
 							if(return_val['success'] == 1) {
 								$("#" + this.value + "_contribMonth").html(return_val['month']);
 								$("#" + this.value + "_contribEntered").animate({backgroundColor:"#008000"},700);
 								if(mail == 1 && return_val['mailSend'] == 1) {
 									$("#" + this.value + "_contribMailSend").animate({backgroundColor:"#008000"},700);
-								} else if(mail == 1 && return_val['mailSend'] == -1) {
+								} else if(mail == 1 && return_val['mailSend'] != 1) {
 									$("#" + this.value + "_contribMailSend").animate({backgroundColor:"#FF0000"},700);
 								}
 							} else {

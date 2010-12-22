@@ -10,6 +10,7 @@ define("_BEITRAG_SATZ", 4.00); // Basisbeitrag bei Verwendung des fixen Satzes. 
 define("_BEITRAG_FAKTOR_MA", 1.0);
 define("_BEITRAG_FAKTOR_HIWI", 0.5);
 
+define("_NAME_KASSENWART", "Tobias Beckmerhagen");
 /**
  * Datenbankanbindung
  */

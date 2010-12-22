@@ -46,7 +46,7 @@ $MA = new Mitglieder($DB->connection);
 $LA = new Lager($DB->connection);
 $ACC = new Accounting($DB->connection);
 $KAS = new Kasse($DB->connection);
-$MAILER = new MyPHPMailer();
+$MAILER = new MyPHPMailer($DB->connection);
 //$STAT = new CoffeeStatistics($DB->connection);
 
 // Anwendungsweite Variablen fuellen
