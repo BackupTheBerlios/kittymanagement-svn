@@ -9,8 +9,6 @@ error_reporting(E_ALL);
 date_default_timezone_set('Europe/Berlin'); // Fix Compiler Error if date() is called relying to the system timezone
 $loc = setlocale(LC_TIME, 'de_DE', 'de_DE@euro', 'de_DE.utf8'); // Sprach bzw. Gebietsschema fuer Zeit / Datum etc. festlegen
 
-//echo "LOCALE: ".$loc."<br>";
-
 // Konfiguration einbinden
 require_once('CustomExceptions.php');
 require_once('Global.cfg.php');
