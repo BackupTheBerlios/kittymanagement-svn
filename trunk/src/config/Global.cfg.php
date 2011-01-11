@@ -11,15 +11,16 @@ define("_BEITRAG_FAKTOR_MA", 1.0);
 define("_BEITRAG_FAKTOR_HIWI", 0.5);
 
 define("_NAME_KASSENWART", "Tobias Beckmerhagen");
+
 /**
  * Datenbankanbindung
  */
 
 // Verbindungsinfos
 define("_DB_HOST","localhost");
-define("_DB_USER","kaffeekasse");
+define("_DB_USER","kaffee");
 define("_DB_PASSWD","kaffee");
-define("_DB_DATABASE","kaffeekasse");
+define("_DB_DATABASE","kaffee");
 
 // Tabellen
 define("_TBL_MA_","mitglieder_stamm");
@@ -40,7 +41,7 @@ define("_TBL_GER_ZAEHLER_","maschine_tassen");
  */
 
 // Basisverzeichnis
-define("_BASE_DIR","/var/www/projects/Kaffeekasse/");
+define("_BASE_DIR","/var/www/projekte/Kaffeekasse/");
 
 // Pfad zu den Libs
 define("_LIB_DIR",_BASE_DIR."lib/");
