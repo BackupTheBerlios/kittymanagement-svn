@@ -15,7 +15,7 @@ body {
 	font: normal 62.5% "Lucida Sans Unicode",sans-serif;
 	margin: 0;
 }
-input, select {
+input, select, textarea {
 	color: #555;
 	font: normal 1.0em "Lucida Sans Unicode",sans-serif;
 	background-color: #DDD;
