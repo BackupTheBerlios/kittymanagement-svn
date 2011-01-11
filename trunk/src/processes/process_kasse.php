@@ -54,14 +54,15 @@ if($_POST['bucheBeitrag']) {
 }
 
 if($_GET['zeigeAusgaben'] == 1) {
-	$spendingList = $KAS->getSpendings(_SPENDING_DISPLAY_COUNT);
+	$spendingList = $KAS->getCashBoxPostings(_SPENDING_DISPLAY_COUNT);
 	
 	if(is_array($spendingList)) {
 		$tbl = '<table>
 				<tr>
 					<th>Datum</th>
 					<th>Bemerkung</th>
-					<th>Betrag</th>
+					<th>Einzahlung</th>
+					<th>Auszahlung</th>
 				</tr>';
 		foreach($spendingList as $spending) {
 			$tbl .= "<tr>";
@@ -70,10 +71,16 @@ if($_GET['zeigeAusgaben'] == 1) {
 					$tbl .= "<td>".$value."</td>";
 				}
 				if($key == "bemerkung") {
-					$tbl .= "<td>".$value."</td>";
+					$tbl .= "<td>".htmlentities($value)."</td>";
 				}
 				if($key == "betrag") {
-					$tbl .= '<td class="betrag">'.number_format($value, 2, ",", ".").' &euro;</td>';
+					if($value < 0) {
+						$tbl .= '<td class="betrag">'.number_format($value*-1, 2, ",", ".").' &euro;</td>';
+						$tbl .= '<td>&#160;</td>';
+					} elseif($value >= 0) {
+						$tbl .= '<td>&#160;</td>';
+						$tbl .= '<td class="betrag">'.number_format($value, 2, ",", ".").' &euro;</td>';
+					}
 				}				
 			}
 			$tbl .= "</tr>";

@@ -6,7 +6,7 @@
 
 <div class="item">
 
-	<h1>&raquo; Kasse &raquo; Ausgabe buchen</h1>
+	<h1>&raquo; Kasse &raquo; Buchungen</h1>
 	<fieldset>
 		<form name="spending" id="spending" action="" method="post">
 			<div>
@@ -16,6 +16,8 @@
 					<option value="Einkauf - Kaffee">Einkauf - Kaffee</option>
 					<option value="Einkauf - Milch">Einkauf - Milch</option>
 					<option value="Einkauf - Zucker">Einkauf - Zucker</option>
+					<option value="Einkauf - Reinigungsmittel">Einkauf - Reinigungsmittel</option>
+					<option value="Sonstige Ausgaben">Sonstige Ausgaben</option>
 				</select>
 				<label class="error" for="bemerkung" id="bemerkung_error">Bitte w&auml;hlen Sie eine Buchungsbemerkung</label>
 			</div>
@@ -31,14 +33,15 @@
 
 <div class="item">
 
-	<h1>&raquo; &Uuml;bersicht der letzten {$spendingDisplayCount} Ausgaben</h1>
+	<h1>&raquo; &Uuml;bersicht der letzten {$spendingDisplayCount} Buchungen</h1>
 	<div id="lastSpendings">
 		{if is_array($spendingList) }
 			<table>
 				<tr>
 					<th>Datum</th>
 					<th>Bemerkung</th>
-					<th>Betrag</th>
+					<th>Einzahlung</th>
+					<th>Auszahlung</th>
 				</tr>
 				{foreach name=aussen item=spending from=$spendingList}
 				<tr>	
@@ -50,7 +53,13 @@
 						<td>{$val}</td>
 					{/if}
 					{if $key == "betrag"}
-						<td class="betrag">{$val|ger_number_format} &euro;</td>
+						{if $val < 0}
+							<td class="betrag">{$val*-1|ger_number_format} &euro;</td>
+							<td>&#160;</td>
+						{elseif $val >= 0}
+							<td>&#160;</td>
+							<td class="betrag">{$val|ger_number_format} &euro;</td>
+						{/if}
 					{/if}
 				{/foreach}
 				</tr>

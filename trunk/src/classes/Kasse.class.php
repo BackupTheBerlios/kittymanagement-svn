@@ -23,26 +23,24 @@ class Kasse {
 	}
 
 	/**
-	 * Liefert alle Ausgaben aus der Kasse.<br />
+	 * Liefert alle Buchungen der Kasse.<br />
 	 * Die Anzahl der Datens&auml;tze kann &uuml;ber den Parameter gesteuert werden.
 	 * 
 	 * @param Integer $displayLimit Anzahl anzuzeigender Ausgaben
 	 */
-	public function getSpendings($displayLimit = null) {
+	public function getCashBoxPostings($displayLimit = null) {
 		
 		if ($displayLimit != null && is_int($displayLimit)) {
 			$sql = "SELECT 
 						  date_format(datum, '%d.%m.%Y') as datum
 						, bemerkung
 						, betrag 
-					FROM "._TBL_KA_KASSE_." 
-					WHERE art = '+' 
+					FROM "._TBL_KA_KASSE_."
 					ORDER BY lfdnr DESC 
 					LIMIT ".$displayLimit;
 		} else {
 			$sql = "SELECT * 
-					FROM "._TBL_KA_KASSE_." 
-					WHERE art = '+' 
+					FROM "._TBL_KA_KASSE_."
 					ORDER BY lfdnr DESC";
 		}
 

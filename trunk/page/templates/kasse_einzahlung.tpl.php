@@ -6,7 +6,7 @@
 
 <div class="item">
 
-	<h1>&raquo; Kasse &raquo; Einzahlung buchen</h1>
+	<h1>&raquo; Kasse &raquo; Beitr&auml;ge buchen</h1>
     <fieldset>
     	<form name="payment" id="payment" action="" method="post">
         	<div>
@@ -29,7 +29,6 @@
 					<option value="0" selected="selected">&nbsp;-- Bemerkung ausw&auml;hlen --&nbsp;&nbsp;</option>
 					<option value="Bareinzahlung - Monatsbeitrag">Bareinzahlung - Monatsbeitrag</option>
 					<option value="Bareinzahlung - Sonstiges">Bareinzahlung - Sonstiges</option>
-					<option value="Umbuchung - Milchkauf">Umbuchung - Milchkauf</option>
 				</select>
 				<label class="error" for="bemerkung" id="bemerkung_error">Bitte w&auml;hlen Sie eine Buchungsbemerkung</label>
 			</div>
@@ -45,7 +44,7 @@
 	
 <div class="item">
 
-	<h1>&raquo; &Uuml;bersicht der letzten {$paymentDisplayCount} Einzahlungen</h1>
+	<h1>&raquo; &Uuml;bersicht der letzten {$paymentDisplayCount} Beitragszahlungen</h1>
 	<div id="lastPayments">
 		{if is_array($paymentList) }
 			<table>

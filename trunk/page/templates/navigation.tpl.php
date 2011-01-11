@@ -3,8 +3,8 @@
 
 	<h1>Kasse</h1>
 	<ul>
-		<li><a href="kasse.php?p=einzahlung">&raquo; Einzahlung</a></li>
-		<li><a href="kasse.php?p=auszahlung">&raquo; Ausgabe</a></li>
+		<li><a href="kasse.php?p=einzahlung">&raquo; Beitr&auml;ge</a></li>
+		<li><a href="kasse.php?p=auszahlung">&raquo; Buchungen</a></li>
 	</ul>
 	
 	<h1>Lager</h1>

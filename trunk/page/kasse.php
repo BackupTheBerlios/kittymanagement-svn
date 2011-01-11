@@ -5,7 +5,7 @@ require_once('../src/config/Init.php');
 $subPage = $_GET['p'];
 
 if($subPage == "auszahlung") {
-	$spendingList = $KAS->getSpendings(_SPENDING_DISPLAY_COUNT);
+	$spendingList = $KAS->getCashBoxPostings(_SPENDING_DISPLAY_COUNT);
 
 	$SM->assign("spendingList", $spendingList);
 } 
