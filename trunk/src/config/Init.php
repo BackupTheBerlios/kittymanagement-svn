@@ -25,6 +25,7 @@ require_once(_CLASS_DIR.'/Mitglieder.class.php');
 require_once(_CLASS_DIR.'/Lager.class.php');
 require_once(_CLASS_DIR.'/Accounting.class.php');
 require_once(_CLASS_DIR.'/Kasse.class.php');
+require_once(_CLASS_DIR.'/Textbausteine.class.php');
 require_once(_CLASS_DIR.'/Statistik.class.php');
 
 // Anwendungsweite Klassen instantiieren
@@ -45,6 +46,7 @@ $LA = new Lager($DB->connection);
 $ACC = new Accounting($DB->connection);
 $KAS = new Kasse($DB->connection);
 $MAILER = new MyPHPMailer($DB->connection);
+$TEXTBST = new Textbausteine($DB->connection);
 //$STAT = new CoffeeStatistics($DB->connection);
 
 // Anwendungsweite Variablen fuellen
