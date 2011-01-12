@@ -145,6 +145,23 @@ class Mitglieder {
 		return $count;
 	}
 	
+	/**
+	 * Liefert den Kontostand des Benutzers mit der uebergebenen ID
+	 * 
+	 * @param Integer $userId
+	 * 
+	 * @return Integer User Account balance
+	 */
+	public function getAccountBalance($userId) {
+		$sql = "SELECT sum(betrag) as ktostand FROM "._TBL_MA_KTO_." WHERE ma_id = ".$userId." LIMIT 1";
+		if((!$result = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($result) != 1)) {
+			return '<span class="error">Die Abfrage lieferte kein Ergebniss!</span>';
+		} else {
+			$resArr = mysql_fetch_row($result);
+			return $resArr[0];
+		}
+	}
+	
 }
 
 ?>

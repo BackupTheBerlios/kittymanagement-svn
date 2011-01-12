@@ -25,7 +25,7 @@ if($_POST['bucheBeitrag']) {
 	$sendMail = $_POST['mail'];
 	$monthOfPosting = strftime("%B")." ".strftime("%Y");
 
-	$success = $ACC->postContributions($ma_id, date("Y-m-d"), $betrag, "Monatsbeitrag - ".$monthOfPosting);
+	$success = $ACC->postContributions($ma_id, date("Y-m").'-01', $betrag, "Monatsbeitrag - ".$monthOfPosting);
 	
 	$successComment = "";
 	
@@ -39,7 +39,9 @@ if($_POST['bucheBeitrag']) {
 	$mailSuccess = -1;
 	if(($success == 1) && ($sendMail == 1)) {
 		$usrObject = $MA->getMitglied(false, $ma_id);
-		if($MAILER->sendContributionInformationMail($usrObject, $betrag, $monthOfPosting)) {
+		$usrAccountBalance = $MA->getAccountBalance($ma_id);
+		
+		if($MAILER->sendContributionInformationMail($usrObject, $betrag, $usrAccountBalance, $monthOfPosting)) {
 			$mailSuccess = 1;
 		} else {
 			$mailSuccess = -666;

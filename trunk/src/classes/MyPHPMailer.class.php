@@ -70,11 +70,11 @@ class MyPHPMailer extends PHPMailer {
 		
 		$welcomeText = '
 			Hallo '.$vname.',<br>
-			willkommen in der Kaffeekasse.<br>
-			Du wirst nun monatlich per E-Mail eine Abrechnung bekommen.<br>
+			Du bist jetzt ein Mitglied unserer Kaffeekasse.<br>
+			Monatlich werden wir Dir per E-Mail eine Abrechnung schicken.<br>
 			Die Abrechnung wird Dich &uuml;ber die H&ouml;he des Beitrages f&uuml;r den Monat informieren und 
 			Dir Deinen aktuellen Kontostand mitteilen.<br>
-			Ebenfalls wird der jeweils aktuelle Reinigungsplan mit angef&uuml;gt, damit Du immer eine aktuelle &Uuml;bersicht hast, 
+			Ebenfalls wird der jeweils aktuelle Reinigungsplan mit angef&uuml;gt, damit Du immer eine &Uuml;bersicht hast, 
 			welcher Teilnehmer in welcher Woche Dienst hat.<br>
 			<br>
 			Bei Fragen und / oder Problemen kannst Du Dich nat&uuml;rlich immer gerne an mich wenden.<br>
@@ -106,16 +106,16 @@ class MyPHPMailer extends PHPMailer {
 	 * 
 	 * @return String result message
 	 */
-	public function sendContributionInformationMail($usrObject, $betrag, $monthOfPosting) {
+	public function sendContributionInformationMail($usrObject, $betrag, $accountBalance, $monthOfPosting) {
 		
 		// id, name, vorname, email, eintritt, faktor		
 		
-		$subject = 'Kaffeekasse: Abrechung f&uuml;r '.$monthOfPosting;
+		$subject = 'Kaffeekasse: Abrechung für '.$monthOfPosting;
 		
 		$message = '
 			Hallo '.$usrObject[2].',<br />
-			f&uuml;r den Monat '.$monthOfPosting.' wird Dir eine Geb&uuml;hr von '.$betrag.' &euro; in Rechnung gestellt.<br />
-			Dein aktueller Kontostand lautet: xxx,yy &euro;.<br />
+			f&uuml;r den Monat <b>'.$monthOfPosting.'</b> wird Dir eine Geb&uuml;hr von <b>'.$betrag.' &euro;</b> in Rechnung gestellt.<br />
+			Dein aktueller Kontostand betr&auml;gt: <b>'.number_format($accountBalance, 2, ",", ".").' &euro;</b>.<br /><br />
 			Bitte begleiche Deine Ausst&auml;nde umgehend.<br /><br />
 			Beste Gr&uuml;&szlig;e,<br />
 			'._NAME_KASSENWART.'

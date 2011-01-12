@@ -48,7 +48,6 @@ $(function() {
 									$("#" + this.value + "_contribMailSend").animate({backgroundColor:"#FF0000"},700);
 								}
 							}
-
 						});
 
 						return false;
