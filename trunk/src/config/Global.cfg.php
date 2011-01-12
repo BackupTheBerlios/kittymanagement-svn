@@ -18,9 +18,9 @@ define("_NAME_KASSENWART", "Tobias Beckmerhagen");
 
 // Verbindungsinfos
 define("_DB_HOST","localhost");
-define("_DB_USER","kaffee");
+define("_DB_USER","kaffeekasse");
 define("_DB_PASSWD","kaffee");
-define("_DB_DATABASE","kaffee");
+define("_DB_DATABASE","kaffeekasse");
 
 // Tabellen
 define("_TBL_MA_","mitglieder_stamm");
@@ -36,12 +36,14 @@ define("_TBL_LA_AUSGANG","lager_ausgang");
 
 define("_TBL_GER_ZAEHLER_","maschine_tassen");
 
+define("_TBL_TXT_BAUSTEINE_","textbausteine");
+
 /**
  * Verzeichnisse 
  */
 
 // Basisverzeichnis
-define("_BASE_DIR","/var/www/projekte/Kaffeekasse/");
+define("_BASE_DIR","/var/www/projects/Kaffeekasse/");
 
 // Pfad zu den Libs
 define("_LIB_DIR",_BASE_DIR."lib/");
