@@ -49,20 +49,22 @@
 			<th>E-Mail</th>
 		</tr>
 		{foreach name=aussen item=member from=$member_list}
-		<tr>
-			<td>
-				{$member.name}, {$member.vorname}
-				<input type="hidden" id="hidden" value="{$member.id}" />
-				<input type="hidden" id="{$member.id}" value="{$member.faktor}" />
-			</td>
-			<td class="betrag">
-				{if $member.faktor == "hiwi"} HiWi {/if}
-				{if $member.faktor == "ma"} MA {/if}
-			</td>
-			<td id="{$member.id}_contribMonth"></td>
-			<td id="{$member.id}_contribEntered"></td>
-			<td id="{$member.id}_contribMailSend"></td>
-		</tr>
+			{if $member.status == 1}
+				<tr>
+					<td>
+						{$member.name}, {$member.vorname}
+						<input type="hidden" id="hidden" value="{$member.id}" />
+						<input type="hidden" id="{$member.id}" value="{$member.faktor}" />
+					</td>
+					<td class="betrag">
+						{if $member.faktor == "hiwi"} HiWi {/if}
+						{if $member.faktor == "ma"} MA {/if}
+					</td>
+					<td id="{$member.id}_contribMonth"></td>
+					<td id="{$member.id}_contribEntered"></td>
+					<td id="{$member.id}_contribMailSend"></td>
+				</tr>
+			{/if}
 		{/foreach}	
 	</table>
 	{else}

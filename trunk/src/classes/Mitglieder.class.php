@@ -58,8 +58,37 @@ class Mitglieder {
 		}
 	}
 	
-	public function editMitglied() {
-		//$id, $name, $vorname, $email, $faktor, $aktiv, $inaktiv_von, $inaktiv_bis
+	/**
+	 * Aktualisiert die Daten eines Mitgliedes.
+	 * 
+	 * @param Integer $id Mitglieds ID
+	 * @param Integer $email E-Mail Adresse
+	 * @param Integer $faktor Berechungsfaktor des Mitgliedes (ma|hiwi)
+	 * @param Integer $status Status ob das Mitglied aktiv oder inaktiv ist (1|0)
+	 * 
+	 * @return Array $updateResult Assoziatives Array mit Integer Werten f&uuml;r die einzelnen Update Vorg&auml;nge
+	 */
+	public function updateMitglied($id, $email, $faktor, $status) {
+		$updateResult;
+		$mitgliedData = $this->getMitglied(false, $id);
+		if($mitgliedData[6] != $status) {
+			$updateStatusSql = "UPDATE "._TBL_MA_STAT_." SET status = '".$status."', datum = CURDATE() WHERE maid = ".$id." LIMIT 1";
+			if((!$statusResult = mysql_query($updateStatusSql, $this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
+				$updateResult['status'] = -1;
+			} else {
+				$updateResult['status'] = 1;
+			}
+		}
+		
+		if(($mitgliedData[3] != $email) || ($mitgliedData[5] != $faktor)) {
+			$updateStammDaten = "UPDATE "._TBL_MA_." SET email = '".$email."', faktor = '".$faktor."' WHERE id = ".$id." LIMIT 1";
+			if((!$stammResult = mysql_query($updateStammDaten, $this->DBConn)) || (mysql_affected_rows($this->DBConn) != 1)) {
+				$updateResult['stammDaten'] = -1;
+			} else {
+				$updateResult['stammDaten'] = 1;
+			}
+		}
+		return $updateResult;
 	}
 	
 	/**
@@ -74,14 +103,14 @@ class Mitglieder {
 	 */
 	public function getMitglied($all = true, $ma_id = null) {
 		if(($all == false) && $ma_id != null) {
-			$sql = "SELECT * FROM "._TBL_MA_." WHERE id = ".$ma_id." LIMIT 1";
+			$sql = "SELECT ma.*, ms.status FROM "._TBL_MA_." ma, "._TBL_MA_STAT_." ms WHERE ma.id = ".$ma_id." AND ma.id = ms.maid LIMIT 1";
 			if((!$result = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($result) != 1)) {
 				return '<span class="error">Die Abfrage lieferte kein Ergebniss!</span>';
 			} else {
 				return mysql_fetch_row($result);
 			}
 		} else if(($all == true) && ($ma_id == null)) {
-			$sql = "SELECT * FROM "._TBL_MA_." ORDER BY name ASC";
+			$sql = "SELECT ma.*, ms.status FROM "._TBL_MA_." ma, "._TBL_MA_STAT_." ms WHERE ms.maid = ma.id ORDER BY name ASC";
 			if((!$result = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($result) <= 0)) {
 				return '<span class="error">Es ist ein Fehler aufgetreten!</span>';
 			} else {

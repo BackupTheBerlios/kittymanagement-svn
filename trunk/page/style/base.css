@@ -56,6 +56,10 @@ h1,h2,h3 {
 .clearer {
 	clear: both;
 }
+.no_edit {
+	background-color: #F2F5F7;
+	border: 1px solid #DDD;
+}
 
 /* structure */
 .container {
@@ -159,6 +163,10 @@ h1,h2,h3 {
 	float: right;
 	width: 520px;
 }
+.widget_content {
+	width: 350px;
+	margin: 0px auto;
+}
 .content .breadcrumbs {
 	padding: 2px 12px;
 	border: 1px solid #EEE;
@@ -169,6 +177,12 @@ h1,h2,h3 {
 	padding: 6px 12px;
 	border: 1px solid #EEE;
 	background: #EEE;
+	margin-bottom: 8px;
+}
+.widget_content .item {
+	padding: 6px 12px;
+	border: 1px solid #EEE;
+	background: #F2F5F7;
 	margin-bottom: 8px;
 }
 .content .catdescr {
@@ -182,41 +196,49 @@ h1,h2,h3 {
 	color: #333;
 	margin-bottom: 6px;
 }
-.content li {
-	list-style: url(../images/li.gif);
-	margin-left: 18px;
+.content ul > li {
+	list-style: url(../images/pin_blue.png);
+	margin-left: 25px;
 }
-.content label {
+.content ol > li {
+	list-style: url(../images/pin_grey.png);
+	margin-left: 15px;
+}
+.content label, .widget_content label {
 	display: inline-block;
 	width: 10em;
 }
-.content form div {
+.content form div, .widget_content form div {
 	margin-bottom: 0.5em;
 }
 .betrag {
 	text-align: right;
 }
-.content fieldset {
+.content fieldset, .widget_content fieldset {
 	padding: 5px;
 	border: 0px;
 }
-.content table {
+.content table, .widget_content table {
 	margin: 0px auto;
 	border-collapse: collapse;
 	font-size: 1.2em;
 }
-.content tr {
+.content tr, .widget_content tr {
 	background-color: #DDD;
 }
-.content td, th {
+.content td, th, .widget_content td, th {
 	padding: 1px 3px;
 	border: 2px solid #EEE;
 }
-.content td > a > img{
+.content td > a > img, .widget_content td > a > img {
 	vertical-align: middle;
 	border: 0px;
 }
-.content .catdescr img{
+.content th > img, .widget_content th > img {
+	vertical-align: middle;
+	border: 0px;
+}
+.content .catdescr img, .widget_content .catdescr img {
 	vertical-align: bottom;
 	border: 0px;
 }

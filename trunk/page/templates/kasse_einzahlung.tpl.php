@@ -15,7 +15,9 @@
         			<option value="0" selected="selected">&nbsp;-- Teilnehmer ausw&auml;hlen --&nbsp;&nbsp;</option>
         			{if is_array($member_list)}
 						{foreach name=aussen item=member from=$member_list}
+							{if $member.status == 1}
 							<option value="{$member.id}">{$member.name}, {$member.vorname}</option>
+							{/if}
 						{/foreach}
 					{else}
 						{$member_list}

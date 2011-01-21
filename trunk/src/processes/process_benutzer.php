@@ -88,21 +88,23 @@ if($_GET['zeigeBenutzer'] == 1) {
 					<th></th>
 				</tr>';
 		foreach($benutzerListe as $benutzer) {
-			$tbl .= "<tr>";
-			foreach($benutzer as $key => $value) {				
-				if($key == "name") {
-					$tbl .= "<td>".htmlentities($value)."</td>";
+			if($benutzer['status'] == 1) {
+				$tbl .= "<tr>";
+				foreach($benutzer as $key => $value) {				
+					if($key == "name") {
+						$tbl .= "<td>".htmlentities($value)."</td>";
+					}
+					if($key == "vorname") {
+						$tbl .= "<td>".htmlentities($value)."</td>";
+					}
+					if($key == "email") {
+						$tbl .= "<td>".htmlentities($value)."</td>";
+					}			
 				}
-				if($key == "vorname") {
-					$tbl .= "<td>".htmlentities($value)."</td>";
-				}
-				if($key == "email") {
-					$tbl .= "<td>".htmlentities($value)."</td>";
-				}			
+
+				$tbl .= '<td><a href="" name="userDetails" id="'.$benutzer['id'].'"><img src="images/ppl_view.png" alt="edit" title="Benutzer anzeigen / editieren" /></a></td>';
+				$tbl .= "</tr>";
 			}
-			// @TODO Link anpassen, um Maske zum editieren aufzurufen - !!! Auch in benutzer_verwalten.tpl.php !!!
-			$tbl .= '<td><a href=""><img src="images/ppl_view.png" alt="edit" title="Benutzer anzeigen / editieren" /></a></td>';
-			$tbl .= "</tr>";
 		}
 		$tbl .= "</table>";
 		
@@ -110,5 +112,70 @@ if($_GET['zeigeBenutzer'] == 1) {
 	} else {
 		echo $benutzerListe;
 	}
+}
+
+if($_GET['showUsrDetails'] == 1) {
+	$usrId = $_GET['usrId'];
+	$response = "";
+	if(!$usrId || !is_int(intval($usrId))) {
+		$response = '<div class="error">Es wurde kein Benutzer angegeben oder der Benutzer existiert nicht! [usrId: '.$usrId.']</div>';
+	} else {
+		$benutzer = $MA->getMitglied(false, $usrId);
+		$checked = 'checked="checked"';
+		
+		$response = '
+			<div class="widget_content">
+				<div class="item">
+					<fieldset>
+				    	<form name="user_edit" id="user_edit" action="" method="post">
+				        	<div>
+				        		<label for="vname">Vorname: </label>
+				        		<input name="vname" type="text" id="vname" class="styled no_edit" readonly="readonly" value="'.htmlentities($benutzer[1]).'" />
+				        	</div>
+				        	<div>
+				        		<label for="nname">Nachname: </label>
+				        		<input name="nname" type="text" id="nname" class="styled no_edit" readonly="readonly" value="'.htmlentities($benutzer[2]).'" />
+				        	</div>
+				        	<div>
+				        		<label for="email">eMail Adresse: </label>
+				        		<input name="email" type="text" id="email" class="styled" size="30" value="'.htmlentities($benutzer[3]).'" />
+				        	</div>
+							<div>
+								<label for="kategorie">Kategorie:</label>
+								<input type="radio" name="kategorie" value="ma" id="kategorie" '.($benutzer[5] == 'ma' ? $checked : '').' /> Mitarbeiter&nbsp;&nbsp;
+								<input type="radio" name="kategorie" value="hiwi" id="kategorie" '.($benutzer[5] == 'hiwi' ? $checked : '').' /> HiWi<br />
+							</div>
+							<div>
+								<label for="status">Status:</label>
+								<input type="radio" name="status" value="1" id="status" '.($benutzer[6] == 1 ? $checked : '').' /> Aktiv&nbsp;&nbsp;
+								<input type="radio" name="status" value="0" id="status" '.($benutzer[6] == 0 ? $checked : '').' /> Inaktiv<br />
+								<input type="hidden" name="usrId" value="'.$usrId.'" />
+							</div>
+						</form>
+					</fieldset>
+				</div>
+				<div class="item" id="retDiv">
+					<span id="stammUpd"></span><br />
+					<span id="statusUpd"></span>
+				</div>
+			</div>
+		';
+	}
+	
+	echo $response;
+}
+
+if($_GET['updateUserData'] == 1) {
+	$updReturn = $MA->updateMitglied($_POST['usrId'], $_POST['email'], $_POST['kategorie'], $_POST['status']);
+	
+	if((isset($updReturn['status'])) && ($updReturn['status'] == 1)) $statusSuccess = "Benutzerstatus erfolgreich ge&auml;ndert!";
+	if((isset($updReturn['status'])) && ($updReturn['status'] == -1)) $statusSuccess = "FEHLER!! Benutzerstatus nicht ge&auml;ndert!";
+	
+	if((isset($updReturn['stammDaten'])) && ($updReturn['stammDaten'] == 1)) $stammSuccess = "Benutzerdaten erfolgreich ge&auml;ndert!";
+	if((isset($updReturn['stammDaten'])) && ($updReturn['stammDaten'] == -1)) $stammSuccess = "FEHLER!! Benutzerdaten nicht ge&auml;ndert!";
+	
+	$returnValues = array('stammDaten' => $stammSuccess, 'status' => $statusSuccess);
+	
+	echo json_encode($returnValues);
 }
 ?>

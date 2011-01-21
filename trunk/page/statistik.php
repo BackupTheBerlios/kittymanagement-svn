@@ -2,14 +2,24 @@
 
 require_once('../src/config/Init.php');
 
-$SM->assign("nav_id_statistik", 'id="current"');
-
+/*
 $maCount = $MA->getMitgliederCount();
 $SM->assign('maCount', $maCount);
 
 $artListe = $LA->getArtikelListe();
 $SM->assign('artListe',$artListe);
+*/
 
-$SM->display("statistik.tpl.php");
+$subPage = $_GET['p'];
+
+if($subPage == "konten") {
+	foreach($MEMBER_LIST as $k => $v) {
+		$memberAccSum[$v['id']] = $MA->getAccountBalance($v['id']);
+	}	
+	$SM->assign("memberAccountSum", $memberAccSum);
+}
+
+
+$SM->display("statistik_".$subPage.".tpl.php");
 
 ?>

@@ -2,6 +2,7 @@
 
 {literal}
 <script type="text/javascript" src="../src/javascript/benutzer_hinzu.js"></script>
+<script type="text/javascript" src="../src/javascript/benutzer_edit.js"></script>
 {/literal}
 
 
@@ -60,15 +61,17 @@
 				<th>Email</th>
 				<th></th>
 			</tr>
-			{foreach name=aussen item=member from=$member_list}						
-			<tr>
-				<td>{$member.name}</td>
-				<td>{$member.vorname}</td>
-				<td>{$member.email}</td>
-				<td>
-					<a href=""><img src="images/ppl_view.png" alt="edit" title="Benutzer anzeigen / editieren" /></a>
-				</td>
-			</tr>
+			{foreach name=aussen item=member from=$member_list}
+				{if $member.status == 1}
+					<tr>
+						<td>{$member.name}</td>
+						<td>{$member.vorname}</td>
+						<td>{$member.email}</td>
+						<td>
+							<a href="" name="userDetails" id="{$member.id}"><img src="images/ppl_view.png" alt="edit" title="Benutzer anzeigen / editieren" /></a>
+						</td>
+					</tr>
+				{/if}
 			{/foreach}
 		</table>
 		{else}

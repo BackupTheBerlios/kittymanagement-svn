@@ -13,9 +13,9 @@
 
 <title>{$applicationTitleName}</title>
 
-<link rel="stylesheet" type="text/css" media="all" href="../page/style/base.css" />
-
+<link type="text/css" media="all" href="../page/style/base.css" rel="stylesheet" />
 <link type="text/css" href="../page/style/custom-theme/jquery-ui-1.8.6.custom.css" rel="stylesheet" />	
+
 <script type="text/javascript" src="../lib/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="../lib/js/jquery-ui-1.8.6.custom.min.js"></script>
 <script type="text/javascript" src="../lib/js/jquery-ui-datepicker-de.js"></script>
