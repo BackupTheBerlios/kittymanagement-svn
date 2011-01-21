@@ -80,11 +80,11 @@ define("_MAILER_CHARSET", 'UTF-8'); // define the default Charset for emails
 /**
  * Version und Name
  */
-define("_PROG_VERSION","0.5 Alpha");
+define("_PROG_VERSION","0.9");
 define("_PROG_NAME",".:[ IGG Kaffeekasse ]:.");
 define("_APP_TITLE_NAME", ":: Kaffeekassenverwaltung ::");
 define("_APP_NAME", ":: IGG :: Kaffeekassenverwaltung ::");
-define("_APP_VERSION", "0.5 alpha");
+define("_APP_VERSION", "0.9");
 
 define("_PAYMENT_DISPLAY_COUNT", 10);
 define("_SPENDING_DISPLAY_COUNT", 10);
