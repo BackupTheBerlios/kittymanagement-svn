@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @todo Anzeige inaktiver Teilnehmer einbauen in # Kontenuebersicht # Benutzerverwaltung
+ */
+
 // ########################
 // Initialisierung der Anwendung
 // ########################
