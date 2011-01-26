@@ -15,8 +15,12 @@ $subPage = $_GET['p'];
 if($subPage == "konten") {
 	foreach($MEMBER_LIST as $k => $v) {
 		$memberAccSum[$v['id']] = $MA->getAccountBalance($v['id']);
-	}	
+	}
+	
+	$baseAccSum = $KAS->getCashBoxAccountBalance();
+	
 	$SM->assign("memberAccountSum", $memberAccSum);
+	$SM->assign("baseAccountSum", $baseAccSum['kassenstand']);
 }
 
 

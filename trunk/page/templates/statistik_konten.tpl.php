@@ -5,8 +5,16 @@
 {/literal}
 
 <div class="item">
+	<h1>&raquo; Statistik &raquo; Aktueller Barbestand</h1>
+	<br />
+	<p>
+		Der aktuelle Barbestand der Kaffeekasse betr&auml;gt <b>{$baseAccountSum*-1|ger_number_format} &euro;</b>
+	</p>
+</div>
 
-	<h1>&raquo; Statistik &raquo; Konten&uuml;bersicht</h1>
+<div class="item">
+
+	<h1>&raquo; Statistik &raquo; Benutzerkonten &Uuml;bersicht</h1>
 	<br />
 	{if is_array($member_list)}
 	<table>

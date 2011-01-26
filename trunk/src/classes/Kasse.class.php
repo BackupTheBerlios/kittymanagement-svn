@@ -102,4 +102,19 @@ class Kasse {
 			return $resultSet;
 		}
 	}
+	
+	/**
+	 * Liefert den Gesamtkontostand der Hauptkasse
+	 * 
+	 */
+	public function getCashBoxAccountBalance() {
+		
+		$sql = "SELECT sum(betrag) as kassenstand FROM "._TBL_KA_KASSE_; 					  
+
+		if((!$result = mysql_query($sql, $this->DBConn)) || (mysql_num_rows($result) <= 0)) {
+			return '<span class="error">Es ist ein Fehler aufgetreten!</span>';
+		} else {
+			return mysql_fetch_assoc($result);
+		}
+	}
 }

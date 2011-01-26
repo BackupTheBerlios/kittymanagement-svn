@@ -13,7 +13,8 @@
 		<ul>
 			<li><u>Statistik</u>
 				<ol>
-					<li>Kontostand aller Teilnehmer als sumierte &Uuml;bersicht</li>
+					<li>Kontostand aller Teilnehmer als &Uuml;bersicht</li>
+					<li>Summe des Barkassenbestandes</li>
 				</ol>
 			</li>
 			<li><u>Verwaltung - Benutzerverwaltung</u>
