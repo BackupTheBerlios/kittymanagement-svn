@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 21. Januar 2011 um 13:54
+-- Erstellungszeit: 26. Januar 2011 um 13:14
 -- Server Version: 5.1.41
 -- PHP-Version: 5.3.3
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `kaffee_kasse` (
 --
 
 INSERT INTO `kaffee_kasse` (`lfdnr`, `datum`, `betrag`, `art`, `bemerkung`) VALUES
-(1, '2010-12-31', '-97.77', '-', 'Übertrag altes Kassenbuch'),
+(1, '2010-12-31', '-77.07', '-', 'Übertrag altes Kassenbuch'),
 (2, '2011-01-17', '-10.00', '-', 'Bareinzahlung - Monatsbeitrag'),
 (3, '2011-01-17', '-5.00', '-', 'Bareinzahlung - Monatsbeitrag'),
 (4, '2011-01-17', '-5.00', '-', 'Bareinzahlung - Monatsbeitrag'),
@@ -206,7 +206,7 @@ INSERT INTO `mitglieder_konto` (`lfdnr`, `kk_lfdnr`, `ma_id`, `datum`, `betrag`,
 (2, 0, 2, '2010-12-31', '3.03', '+', 'Übertrag altes Kassenbuch'),
 (3, 0, 3, '2010-12-31', '6.75', '+', 'Übertrag altes Kassenbuch'),
 (4, 0, 4, '2010-12-31', '0.50', '+', 'Übertrag altes Kassenbuch'),
-(5, 0, 5, '2010-12-31', '-1.50', '-', 'Übertrag altes Kassenbuch'),
+(5, 0, 5, '2010-12-31', '0.00', '+', 'Übertrag altes Kassenbuch'),
 (6, 0, 6, '2010-12-31', '-2.00', '-', 'Übertrag altes Kassenbuch'),
 (7, 0, 7, '2010-12-31', '2.00', '+', 'Übertrag altes Kassenbuch'),
 (8, 0, 8, '2010-12-31', '0.00', '+', 'Übertrag altes Kassenbuch'),
@@ -318,7 +318,7 @@ INSERT INTO `mitglieder_status` (`id`, `maId`, `status`, `datum`) VALUES
 (11, 11, 1, '2011-01-10'),
 (12, 12, 1, '2011-01-10'),
 (13, 13, 1, '2011-01-10'),
-(14, 14, 1, '2011-01-10'),
+(14, 14, 0, '2011-01-26'),
 (15, 15, 1, '2011-01-10'),
 (16, 16, 1, '2011-01-10'),
 (17, 17, 1, '2011-01-10');
